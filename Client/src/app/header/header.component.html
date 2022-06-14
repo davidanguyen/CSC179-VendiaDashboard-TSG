@@ -1,1 +1,48 @@
-<p>header works!</p>
+<header class="hero">
+  <div class="hero-head">
+    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+
+      <!-- Brand Logo -->
+      <div class="navbar-brand">
+        <a class="navbar-item is--brand">
+          <img class="navbar-brand-logo" src="/assets/icons/vendialogo.png" alt="Brand logo">
+        </a>
+        <button class="button navbar-burger" data-target="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="navbar-menu navbar-end" id="navMenu">
+        <div class="navbar-item has-dropdown is-hoverable">
+
+          <a class="navbar-link">
+            <figure class="image is-32x32" style="margin-right: 0.5em">
+              <img src="/assets/icons/greyUser.png">
+            </figure>
+            Name
+          </a>
+
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="/" target="_self">
+              <span class="icon is-small">
+                <img src="assets/icons/userOutline.png" alt="userO">
+              </span>&nbsp;
+              Profile
+            </a>
+
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              <span class="icon is-small">
+                <img src="assets/icons/poweroff.png" alt="poweroff">
+              </span>&nbsp;
+              Logout
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
