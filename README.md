@@ -19,9 +19,9 @@ and the ability to share selected fields of the employee health data with an ins
       - Logan Arens     []
       - Timothy Chiang  []
 
-## CLIENT FOLDER
+## [CLIENT FOLDER](https://github.com/davidanguyen/CSC179-VendiaDashboard-TSG/tree/master/Client)
 This is where the front-end will be held. Can be used on an IDE like Visual Studio Code. More information about the client and how to run it is on the README in the client folder.
 
-## SERVER FOLDER
+## [SERVER FOLDER](https://github.com/davidanguyen/CSC179-VendiaDashboard-TSG/tree/master/Server)
 This is where the back-end will be held. More information about the server and how to run it is on the README in the server folder.
 
