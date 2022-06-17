@@ -13,11 +13,11 @@ and the ability to share selected fields of the employee health data with an ins
 
 ## Team Members
       - David Nguyen    [@davidanguyen]
-      - Belle Nguyen    []
-      - Nue Khang       []
-      - Dominic Nance   []
-      - Logan Arens     []
-      - Timothy Chiang  []
+      - Belle Nguyen    [@Ogo0d4]
+      - Nue Khang       [@iamdeeshadow]
+      - Dominic Nance   [@DomNance]
+      - Logan Arens     [@Zeus-7-7-7]
+      - Timothy Chiang  [@Timmay21]
 
 ## [CLIENT FOLDER](https://github.com/davidanguyen/CSC179-VendiaDashboard-TSG/tree/master/Client)
 This is where the front-end will be held. Can be used on an IDE like Visual Studio Code. More information about the client and how to run it is on the README in the client folder.
