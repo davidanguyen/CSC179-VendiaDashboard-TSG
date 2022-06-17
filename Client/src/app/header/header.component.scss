@@ -1,15 +1,55 @@
 #topBar {
-  background: rgb(8, 4, 36);
+  background-color: rgb(8, 4, 36);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 20;
 }
 
 img#brandVendia {
   filter: grayscale(100%);
   filter: brightness(100);
-
 }
 
 #toplink {
   background: rgb(8, 4, 36);
   font-weight: bold;
   color: white;
+}
+
+.navbar-menu {
+  @media (max-width: 1023px) {
+		padding: 2px 0 0 0;
+
+		.navbar-link{
+			display: flex;
+		}
+
+		.navbar-dropdown{
+			.navbar-item {
+				padding-left: 1.125em;
+				padding-right: 1.125em;
+			}
+		}
+	}
+}
+
+.white-text {
+  color: white;
+}
+
+.ltgray-text {
+  color: rgb(214, 213, 213);
+}
+
+.white-filter {
+  filter: grayscale(100%);
+  filter: brightness(100);
+}
+
+.invert {
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
 }

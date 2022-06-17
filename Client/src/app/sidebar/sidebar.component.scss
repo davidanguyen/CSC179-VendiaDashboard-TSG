@@ -1,0 +1,72 @@
+.sideNavContainerFormat{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#test {
+  visibility: inherit;
+}
+
+mat-sidenav {
+  background-color: rgb(8, 4, 36) !important;
+  visibility: visible !important;
+
+  padding: 2em .5em 0 .5em;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+  position: fixed;
+  top: 64px;
+  width: 200px !important;
+
+  a {
+    color: white;
+  }
+}
+
+mat-sidenav:not(.mat-drawer-opened) {
+  transform: translate3d(0, 0, 0) !important;
+  visibility: visible !important;
+  width: 60px !important;
+  overflow: hidden;
+}
+
+mat-sidenav:not(.mat-drawer-opened) .navLabel {
+  display: none !important;
+}
+
+#sideToggler {
+  background-color: rgb(16, 44, 84);
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+
+  .rotate {
+    transform: rotate(180deg);
+  }
+}
+
+.white-text {
+  color: white;
+}
+
+.ltgray-text {
+  color: rgb(214, 213, 213);
+}
+
+.white-filter {
+  filter: grayscale(100%);
+  filter: brightness(100);
+}
+
+.invert {
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+

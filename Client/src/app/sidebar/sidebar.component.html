@@ -1,0 +1,60 @@
+<mat-sidenav-container class="menu sideNavContainerFormat">
+  <mat-sidenav #sidenav mode="push" [(opened)]="opened" id="sidenavi">
+    <mat-list-item id="sideToggler" (click)="sidenav.toggle()">
+      <span style="color:white">
+        <mat-icon class="rotate">double_arrow</mat-icon>
+      </span>
+    </mat-list-item>
+
+    <mat-list-item>
+      <!-- GENERAL -->
+      <p class="menu-label ltgray-text navLabel">General</p>
+      <ul class="menu-list">
+
+        <!-- HOME -->
+        <a href="/">
+          <span class="menu-text">
+            <mat-icon>home</mat-icon>
+            <span class="navLabel">&ensp;Home</span>
+          </span>
+        </a>
+
+      </ul>
+
+      <!-- ADMIN -->
+      <p class="menu-label ltgray-text navLabel">Administration</p>
+      <ul class="menu-list">
+
+        <!-- DASHBOARD -->
+        <a class="" href="/">
+          <span class="menu-text">
+            <mat-icon>dashboard</mat-icon>
+            <span class="navLabel">&ensp;Dashboard</span>
+          </span>
+        </a>
+      </ul>
+
+      <!-- SOCIAL -->
+      <p class="menu-label ltgray-text navLabel">Social</p>
+      <ul class="menu-list">
+
+        <!-- ABOUT US -->
+        <a class="" href="/">
+          <span class="menu-text">
+            <mat-icon>diversity_1</mat-icon>
+            <span class="navLabel">&ensp;About Us</span>
+          </span>
+        </a>
+
+        <!-- THE CLIENT -->
+        <a href="https://www.vendia.net/" target="_blank">
+          <span class="menu-text">
+            <mat-icon>how_to_reg</mat-icon>
+            <span class="navLabel">&ensp;The Client</span>
+          </span>
+        </a>
+
+      </ul>
+    </mat-list-item>
+  </mat-sidenav>
+</mat-sidenav-container>
