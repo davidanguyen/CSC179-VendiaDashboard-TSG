@@ -13,7 +13,6 @@
 mat-sidenav {
   background-color: rgb(8, 4, 36) !important;
   visibility: visible !important;
-
   padding: 2em .5em 0 .5em;
   height: calc(100vh - 64px);
   overflow: hidden;
@@ -26,7 +25,7 @@ mat-sidenav {
   }
 }
 
-mat-sidenav:not(.mat-drawer-opened) {
+:host ::ng-deep mat-sidenav:not(.mat-drawer-opened) {
   transform: translate3d(0, 0, 0) !important;
   visibility: visible !important;
   width: 60px !important;
