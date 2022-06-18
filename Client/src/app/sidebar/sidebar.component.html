@@ -1,21 +1,22 @@
-<mat-sidenav-container class="menu sideNavContainerFormat">
-  <mat-sidenav #sidenav mode="push" [(opened)]="opened" id="sidenavi">
+<div class="menu">
+  <mat-sidenav  #sidenav mode="push" [(opened)]="opened">
     <mat-list-item id="sideToggler" (click)="sidenav.toggle()">
       <span style="color:white">
-        <mat-icon class="rotate">double_arrow</mat-icon>
+        <mat-icon class="arrowIndicator">double_arrow</mat-icon>
+        <mat-icon class="menuIndicator">menu_open</mat-icon>
       </span>
     </mat-list-item>
 
-    <mat-list-item>
+    <mat-list-item class="redockIcons">
       <!-- GENERAL -->
       <p class="menu-label ltgray-text navLabel">General</p>
       <ul class="menu-list">
 
         <!-- HOME -->
-        <a href="/">
+        <a routerLink="/">
           <span class="menu-text">
             <mat-icon>home</mat-icon>
-            <span class="navLabel">&ensp;Home</span>
+            <span class="navLabel sideNavReposition">&ensp;Home</span>
           </span>
         </a>
 
@@ -26,10 +27,10 @@
       <ul class="menu-list">
 
         <!-- DASHBOARD -->
-        <a class="" href="/">
+        <a class="" routerLink="/dashboard">
           <span class="menu-text">
             <mat-icon>dashboard</mat-icon>
-            <span class="navLabel">&ensp;Dashboard</span>
+            <span class="navLabel sideNavReposition">&ensp;Dashboard</span>
           </span>
         </a>
       </ul>
@@ -42,7 +43,7 @@
         <a class="" href="/">
           <span class="menu-text">
             <mat-icon>diversity_1</mat-icon>
-            <span class="navLabel">&ensp;About Us</span>
+            <span class="navLabel sideNavReposition">&ensp;About Us</span>
           </span>
         </a>
 
@@ -50,11 +51,25 @@
         <a href="https://www.vendia.net/" target="_blank">
           <span class="menu-text">
             <mat-icon>how_to_reg</mat-icon>
-            <span class="navLabel">&ensp;The Client</span>
+            <span class="navLabel sideNavReposition">&ensp;The Client</span>
           </span>
         </a>
 
       </ul>
     </mat-list-item>
   </mat-sidenav>
-</mat-sidenav-container>
+
+
+  <router-outlet></router-outlet>
+
+
+  <footer #closedBlock class="footer" id="tm">
+    <div class="content has-text-centered">
+      <p>
+        Created by
+        <a href="/" target="_self" id="smellyLink">The Smelly Gamers</a>! Summer Session 2022.
+      </p>
+    </div>
+  </footer>
+</div>
+

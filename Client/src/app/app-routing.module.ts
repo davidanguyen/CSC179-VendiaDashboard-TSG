@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  /* EXAMPLE
+  /* EXAMPLE PATH
   {
     path: '',
-    component: Home
+    component: HomeComponent
   } */
+
+  {
+    path: '',
+    component: DashboardComponent // set this to "home" later, testing dashboard only
+  },
+
+  {
+    path: 'dashboard', // set this to 'dashboard' later. Testing dashboard only.
+    component: DashboardComponent
+  }
 ];
 
 @NgModule({

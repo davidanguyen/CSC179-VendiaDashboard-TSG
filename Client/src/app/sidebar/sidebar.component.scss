@@ -1,17 +1,6 @@
-.sideNavContainerFormat{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-#test {
-  visibility: inherit;
-}
-
+// SIDE NAVIGATION
 mat-sidenav {
-  background-color: rgb(8, 4, 36) !important;
+  background-color: rgb(8, 4, 36, 0.99) !important;
   visibility: visible !important;
   padding: 2em .5em 0 .5em;
   height: calc(100vh - 64px);
@@ -20,35 +9,89 @@ mat-sidenav {
   top: 64px;
   width: 200px !important;
 
+  mat-icon {
+    &.arrowIndicator {
+      transform: rotate(180deg);
+      position: relative;
+      top: 4px;
+      width: auto;
+      height: auto;
+      font-size: 40px;
+    }
+
+
+    &.menuIndicator {
+      display: none;
+    }
+  }
+
   a {
     color: white;
   }
 }
 
-:host ::ng-deep mat-sidenav:not(.mat-drawer-opened) {
-  transform: translate3d(0, 0, 0) !important;
-  visibility: visible !important;
+div:hover{
+  background-color: rgb(102, 83, 224);
+}
+
+.sideNavReposition {
+  position: relative;
+  bottom: 3px;
+}
+
+mat-sidenav:not(.mat-drawer-opened) {
+  //animation: slideClose 900ms ease-out !important;
+  visibility: visible;
   width: 60px !important;
   overflow: hidden;
+
+  .arrowIndicator {
+    display: none;
+  }
+
+  .menuIndicator {
+    display: inline;
+    position: relative;
+    top: 8%;
+    left: 13%;
+    padding: .4rem 0rem;
+    width: auto;
+    height: auto;
+    font-size: 40px;
+  }
+
+  mat-icon {
+    position: relative;
+    right: 25% !important;
+    width: auto;
+    height: auto;
+    font-size: 30px;
+  }
+
+  &.redockIcons {
+    position: relative;
+    font-size: 30px;
+  }
 }
 
 mat-sidenav:not(.mat-drawer-opened) .navLabel {
   display: none !important;
 }
 
+@keyframes slideClose {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(0px); }
+}
+
 #sideToggler {
-  background-color: rgb(16, 44, 84);
+  background-color: rgba(16, 44, 84, 0.99);
   width: 100%;
   bottom: 0;
   left: 0;
   position: absolute;
-  padding: 1rem 2rem;
+  padding: .4rem 1rem;
   display: flex;
   justify-content: flex-end;
-
-  .rotate {
-    transform: rotate(180deg);
-  }
 }
 
 .white-text {
@@ -62,6 +105,8 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
 .white-filter {
   filter: grayscale(100%);
   filter: brightness(100);
+  -webkit-filter: grayscale(100%);
+  -webkit-filter: brightness(100);
 }
 
 .invert {
@@ -69,3 +114,24 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
   -webkit-filter: invert(100%);
 }
 
+// FOOTER //
+#tm {
+  background: rgba(8, 4, 36, 0.99);
+  color: white;
+  width: 100%;
+  position: absolute;
+  top: 95.18%;
+  bottom: 0;
+	padding: 17.1px;
+	z-index: -1;
+	font-size: .6rem;
+
+	// mobile
+	@media (max-width: 768px) {
+    left: 0;
+	}
+}
+
+#smellyLink {
+  color: rgb(185, 178, 230);
+}

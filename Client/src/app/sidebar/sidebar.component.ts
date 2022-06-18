@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
 
   // From Angular Material, open and close sidebar nav
-  opened: boolean = true;
+  @Input() opened: boolean = false;
 
   constructor() { }
 }
