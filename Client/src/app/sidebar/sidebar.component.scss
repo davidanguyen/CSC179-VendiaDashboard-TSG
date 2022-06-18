@@ -30,7 +30,7 @@ mat-sidenav {
   }
 }
 
-div:hover{
+div:hover {
   background-color: rgb(102, 83, 224);
 }
 
@@ -79,8 +79,13 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
 }
 
 @keyframes slideClose {
-  from { transform: translateX(-60px); }
-  to { transform: translateX(0px); }
+  from {
+    transform: translateX(-60px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
 }
 
 #sideToggler {
@@ -122,14 +127,23 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
   position: absolute;
   top: 95.18%;
   bottom: 0;
-	padding: 17.1px;
-	z-index: -1;
-	font-size: .6rem;
+  padding: 17.1px;
+  z-index: -1;
+  font-size: .6rem;
 
-	// mobile
-	@media (max-width: 768px) {
+  // mobile
+  @media (max-width: 768px) {
     left: 0;
-	}
+  }
+}
+
+// take the header, sidebar, and footer into account
+#routerOut {
+  position: relative;
+  top: 64px;
+  left: 60px;
+  width: 97.9%;
+  z-index: -1;
 }
 
 #smellyLink {
