@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutusComponent } from './aboutus/aboutus.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   /* EXAMPLE PATH
@@ -11,12 +13,16 @@ const routes: Routes = [
 
   {
     path: '',
-    component: DashboardComponent // set this to "home" later, testing dashboard only
+    component: HomeComponent // set this to "home" later, testing dashboard only
   },
 
   {
     path: 'dashboard', // set this to 'dashboard' later. Testing dashboard only.
     component: DashboardComponent
+  },
+  {
+    path: 'aboutus', // set this to 'dashboard' later. Testing dashboard only.
+    component: AboutusComponent
   }
 ];
 

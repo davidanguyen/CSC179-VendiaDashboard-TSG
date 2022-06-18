@@ -13,6 +13,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HeaderComponent,
     SidebarComponent,
     DashboardComponent,
+    HomeComponent,
+    AboutusComponent,
   ],
   imports: [
     BrowserModule,
