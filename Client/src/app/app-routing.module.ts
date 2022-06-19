@@ -13,15 +13,15 @@ const routes: Routes = [
 
   {
     path: '',
-    component: HomeComponent // set this to "home" later, testing dashboard only
+    component: HomeComponent
   },
 
   {
-    path: 'dashboard', // set this to 'dashboard' later. Testing dashboard only.
+    path: 'dashboard',
     component: DashboardComponent
   },
   {
-    path: 'aboutus', // set this to 'dashboard' later. Testing dashboard only.
+    path: 'aboutus',
     component: AboutusComponent
   }
 ];

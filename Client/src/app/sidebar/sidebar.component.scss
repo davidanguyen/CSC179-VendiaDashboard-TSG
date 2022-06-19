@@ -8,6 +8,7 @@ mat-sidenav {
   position: fixed;
   top: 64px;
   width: 200px !important;
+  z-index: 19;
 
   mat-icon {
     &.arrowIndicator {
@@ -125,7 +126,7 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
   color: white;
   width: 100%;
   position: absolute;
-  top: 95.18%;
+  top: 96.5%;
   bottom: 0;
   padding: 17.1px;
   z-index: -1;
@@ -143,7 +144,7 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
   top: 64px;
   left: 60px;
   width: 97.9%;
-  z-index: -1;
+  z-index: 18;
 }
 
 #smellyLink {
