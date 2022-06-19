@@ -1,16 +1,16 @@
 body {
-  background-color: rgb(9, 42, 80);
+  background-color: rgb(32, 29, 56);
   height: auto;
 
   // take the header and sidebar into account
   .routerOut {
     position: relative;
-    top: 64px;
+    top: 64px !important;
   }
 
   .routerInnerOut {
     position: relative;
-    left: 60px;
+    left: 60px !important;
     width: 97.9%;
     z-index: 17;
   }
