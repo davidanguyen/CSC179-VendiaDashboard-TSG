@@ -1,22 +1,28 @@
-<nav class="breadcrumb is-small" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li class="is-active"><a href="#" aria-current="page">
-        {{title}}
-      </a></li>
-  </ul>
-</nav>
+<div class="grid-container" id="dashContainer">
+  <div class="grid-item" id="dashWidgets">
+    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li class="is-active"><a href="#" aria-current="page">
+            {{title}}
+          </a></li>
+      </ul>
+    </nav>
 
-<div class="level mt-2 mr-2 content-title">
-  <div class="level-left">
-    <div class="level-item">
-      <div class="title has-text-primary">
-        <span class="icon-title">
-          <mat-icon>dashboard</mat-icon>
-        </span>
-        <span>
-          {{title}}
-        </span>
+    <div class="level mt-2 mr-2 content-title">
+      <div class="level-left">
+        <div class="level-item">
+          <div class="title has-text-primary white-text">
+            <span class="icon-title">
+              <mat-icon>dashboard</mat-icon>
+            </span>
+            <span> {{title}} </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+
+

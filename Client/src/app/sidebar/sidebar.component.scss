@@ -31,10 +31,6 @@ mat-sidenav {
   }
 }
 
-div:hover {
-  background-color: rgb(102, 83, 224);
-}
-
 .sideNavReposition {
   position: relative;
   bottom: 3px;
@@ -118,33 +114,6 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
 .invert {
   filter: invert(100%);
   -webkit-filter: invert(100%);
-}
-
-// FOOTER //
-#tm {
-  background: rgba(8, 4, 36, 0.99);
-  color: white;
-  width: 100%;
-  position: absolute;
-  top: 96.5%;
-  bottom: 0;
-  padding: 17.1px;
-  z-index: -1;
-  font-size: .6rem;
-
-  // mobile
-  @media (max-width: 768px) {
-    left: 0;
-  }
-}
-
-// take the header, sidebar, and footer into account
-#routerOut {
-  position: relative;
-  top: 64px;
-  left: 60px;
-  width: 97.9%;
-  z-index: 18;
 }
 
 #smellyLink {

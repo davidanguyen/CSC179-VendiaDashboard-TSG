@@ -7,8 +7,8 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   /* EXAMPLE PATH
   {
-    path: '',
-    component: HomeComponent
+    path: '<ShortName>',
+    component: <ComponentName>
   } */
 
   {

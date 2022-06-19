@@ -1,5 +1,5 @@
 <div class="menu">
-  <mat-sidenav  #sidenav mode="push" [(opened)]="opened">
+  <mat-sidenav #sidenav mode="push" [(opened)]="opened">
     <mat-list-item id="sideToggler" (click)="sidenav.toggle()">
       <span style="color:white">
         <mat-icon class="arrowIndicator">double_arrow</mat-icon>
@@ -58,19 +58,6 @@
       </ul>
     </mat-list-item>
   </mat-sidenav>
-
-<div id="routerOut">
-  <router-outlet></router-outlet>
 </div>
 
-
-  <footer class="footer" id="tm">
-    <div class="content has-text-centered">
-      <p>
-        Created by
-        <a href="/" target="_self" id="smellyLink">The Smelly Gamers</a>! Summer Session 2022.
-      </p>
-    </div>
-  </footer>
-</div>
 

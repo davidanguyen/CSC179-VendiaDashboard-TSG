@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     DashboardComponent,
     HomeComponent,
     AboutusComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

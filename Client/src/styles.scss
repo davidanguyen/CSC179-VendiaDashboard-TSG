@@ -36,11 +36,10 @@ $CSC179-VendiaDashboard-TSG-theme: mat.define-light-theme((
 /* This is a global style sheet */
 
 html {
-  overflow: scroll;           /* Chrome */
-  overflow-x: hidden;         /* Chrome */
-  overflow-y: hidden;         /* Chrome */
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE and Edge */
+  overflow-x: clip;         /* Chrome */
+  overflow-y: scroll;         /* Chrome */
+  scrollbar-width: auto;      /* Firefox */
+  -ms-overflow-style: auto;   /* IE and Edge */
 }
 ::-webkit-scrollbar {
   width: 0;                 /* Remove scrollbar space */
