@@ -1,6 +1,26 @@
-<html>
-  <div>
-    <b style="color:white">dashboard component works! (PRIO FOR PRODUCT DEMO)</b>
-  </div>
-</html>
+<div class="grid-item" class="allWidgets">
+  <!-- BREADCRUMB -->
+  <div id = breadcrumb>
+    <xng-breadcrumb class="xng-breadcrumb-root">
+      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
+        <mat-icon class="ltgray-text" *ngIf="info">{{ info }}</mat-icon>
+        <ng-container *ngIf="!first">
+          <p class="bc-text-fix ltgray-text">{{ breadcrumb }}</p>
+        </ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+  </div><p></p>
 
+  <div class="level mt-2 mr-2 content-title">
+    <div class="level-left">
+      <div class="level-item">
+        <div class="title has-text-primary">
+          <span class="icon-title">
+            <mat-icon class="white-text">dashboard</mat-icon>
+          </span>
+          <span class="white-text"> {{title}} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

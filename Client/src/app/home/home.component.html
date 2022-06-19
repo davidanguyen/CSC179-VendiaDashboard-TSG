@@ -1,5 +1,14 @@
-<html>
-  <div>
-    <b style="color:white">home component works!</b>
-  </div>
-</html>
+<div class="allWidgets">
+  <!-- BREADCRUMB -->
+  <div id = breadcrumb>
+    <xng-breadcrumb class="xng-breadcrumb-root">
+      <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
+        <mat-icon class="ltgray-text" *ngIf="info">{{ info }}</mat-icon>
+        <ng-container><p class="bc-text-fix ltgray-text">{{ breadcrumb }}</p></ng-container>
+      </ng-container>
+    </xng-breadcrumb>
+  </div><p></p>
+
+
+  <b style="color:white">home component works!</b>
+</div>

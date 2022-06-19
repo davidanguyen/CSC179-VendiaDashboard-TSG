@@ -8,6 +8,7 @@ mat-sidenav {
   position: fixed;
   top: 64px;
   width: 200px !important;
+  z-index: 19;
 
   mat-icon {
     &.arrowIndicator {
@@ -28,10 +29,6 @@ mat-sidenav {
   a {
     color: white;
   }
-}
-
-div:hover {
-  background-color: rgb(102, 83, 224);
 }
 
 .sideNavReposition {
@@ -97,55 +94,4 @@ mat-sidenav:not(.mat-drawer-opened) .navLabel {
   padding: .4rem 1rem;
   display: flex;
   justify-content: flex-end;
-}
-
-.white-text {
-  color: white;
-}
-
-.ltgray-text {
-  color: rgb(214, 213, 213);
-}
-
-.white-filter {
-  filter: grayscale(100%);
-  filter: brightness(100);
-  -webkit-filter: grayscale(100%);
-  -webkit-filter: brightness(100);
-}
-
-.invert {
-  filter: invert(100%);
-  -webkit-filter: invert(100%);
-}
-
-// FOOTER //
-#tm {
-  background: rgba(8, 4, 36, 0.99);
-  color: white;
-  width: 100%;
-  position: absolute;
-  top: 95.18%;
-  bottom: 0;
-  padding: 17.1px;
-  z-index: -1;
-  font-size: .6rem;
-
-  // mobile
-  @media (max-width: 768px) {
-    left: 0;
-  }
-}
-
-// take the header, sidebar, and footer into account
-#routerOut {
-  position: relative;
-  top: 64px;
-  left: 60px;
-  width: 97.9%;
-  z-index: -1;
-}
-
-#smellyLink {
-  color: rgb(185, 178, 230);
 }

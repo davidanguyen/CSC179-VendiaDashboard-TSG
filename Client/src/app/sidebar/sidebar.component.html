@@ -1,5 +1,5 @@
 <div class="menu">
-  <mat-sidenav  #sidenav mode="push" [(opened)]="opened">
+  <mat-sidenav #sidenav mode="push" [(opened)]="opened">
     <mat-list-item id="sideToggler" (click)="sidenav.toggle()">
       <span style="color:white">
         <mat-icon class="arrowIndicator">double_arrow</mat-icon>
@@ -13,7 +13,7 @@
       <ul class="menu-list">
 
         <!-- HOME -->
-        <a routerLink="/">
+        <a routerLink="/home">
           <span class="menu-text">
             <mat-icon>home</mat-icon>
             <span class="navLabel sideNavReposition">&ensp;Home</span>
@@ -27,7 +27,7 @@
       <ul class="menu-list">
 
         <!-- DASHBOARD -->
-        <a class="" routerLink="/dashboard">
+        <a class="" routerLink="home/dashboard">
           <span class="menu-text">
             <mat-icon>dashboard</mat-icon>
             <span class="navLabel sideNavReposition">&ensp;Dashboard</span>
@@ -40,7 +40,7 @@
       <ul class="menu-list">
 
         <!-- ABOUT US -->
-        <a class="" href="/aboutus">
+        <a class="" routerLink="home/aboutus">
           <span class="menu-text">
             <mat-icon>diversity_1</mat-icon>
             <span class="navLabel sideNavReposition">&ensp;About Us</span>
@@ -58,19 +58,6 @@
       </ul>
     </mat-list-item>
   </mat-sidenav>
-
-<div id="routerOut">
-  <router-outlet></router-outlet>
 </div>
 
-
-  <footer #closedBlock class="footer" id="tm">
-    <div class="content has-text-centered">
-      <p>
-        Created by
-        <a href="/" target="_self" id="smellyLink">The Smelly Gamers</a>! Summer Session 2022.
-      </p>
-    </div>
-  </footer>
-</div>
 
