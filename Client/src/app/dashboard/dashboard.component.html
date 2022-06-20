@@ -13,14 +13,12 @@
   <div style="height: 0.5em;"></div>
 
   <!-- PAGE HEADER -->
-  <div class="level mt-2 mr-2 content-title">
+  <div class="level">
     <div class="level-left">
       <div class="level-item">
-        <div class="title has-text-primary">
-          <span class="icon-title">
-            <mat-icon class="white-text">{{ icon }}</mat-icon>
-          </span>
-          <span class="white-text"> {{ title }} </span>
+        <div class="title">
+          <mat-icon class="iconTitle">{{ icon }}</mat-icon>
+          <span class="pageTitle"> {{ title }} </span>
         </div>
       </div>
     </div>
@@ -44,26 +42,141 @@
         </div>
       </div>
       <div class="level-right">
-        <div class="level-item"><a routerLink="#" class="button is-light" title="Profile">
+        <div class="level-item">
+          <a routerLink="#" class="button is-light" title="Profile" style="position:relative;left:3em;">
             <span class="icon">
               <mat-icon>person</mat-icon>
             </span>
             <span>Manage profile</span>
           </a>
         </div>
+        <div id="overallShare" class="level-item">
+          <a routerLink="#" class="button is-small is-ghost">
+            <mat-icon class="white-text">share</mat-icon>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- START OF GENDER CHART -->
-  <section>
+  <!-- START OF TILES -->
+  <section class="tile is-ancestor has-text-centered columns-vw" style="padding: 1em 0em 0em;">
+    <div class="tile is-parent">
+      <div class="tile is-child box notification is-warning is-light">
+        <p class="title">{{ numEmpl }}</p>
+        <p class="subtitle">Employees</p>
+      </div>
+    </div>
 
+    <div class="tile is-parent">
+      <div class="tile is-child box notification is-danger is-light">
+        <p class="title">{{ numAVG }}</p>
+        <p class="subtitle">Gender Averages</p>
+      </div>
+    </div>
+
+    <div class="tile is-parent">
+      <div class="tile is-child box notification is-info is-light">
+        <p class="title">{{ numMean }}</p>
+        <p class="subtitle">Mean</p>
+      </div>
+    </div>
+
+    <div class="tile is-parent">
+      <div class="tile is-child box notification is-link is-light">
+        <p class="title">{{ numSD }}</p>
+        <p class="subtitle">Standard Dev</p>
+      </div>
+    </div>
   </section>
-  <!-- END OF GENDER CHART -->
+  <!-- END OF TILES -->
 
-  <!-- START OF LIST OF EMPLOYEES -->
-  <section class="hero-body-empl">
-    <div class="hero-body">
+
+  <section class="columns is-centered is-multiline columns-vw">
+
+    <!-- START OF RIGHT CARD -->
+    <div class="column is-6">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon">
+              <mat-icon>donut_small</mat-icon>
+            </span>
+            <span style="position:relative; top:2px;">&ensp;Overall Gender Doughnut Chart</span>
+          </p>
+        </header>
+
+        <div class="card-content">
+          <canvas id="genderPie" width="400" height="430"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- END OF RIGHT CARD -->
+
+    <!-- START OF LEFT CARD -->
+    <div class="column is-6">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon">
+              <mat-icon>bar_chart</mat-icon>
+            </span>
+            <span style="position:relative; top:2px;">&ensp;Overall Gender Bar Chart</span>
+          </p>
+        </header>
+
+        <div class="card-content">
+          <canvas id="genderBar" width="400" height="400"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- END OF LEFT CARD -->
+
+    <!-- START OF AVG GENDERS -->
+    <div class="column is-6">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon">
+              <mat-icon>pie_chart</mat-icon>
+            </span>
+            <span style="position:relative; top:2px;">&ensp;Average Gender</span>
+          </p>
+        </header>
+
+        <div class="card-content">
+          <a id="shareButton" routerLink="#" class="button is-small is-outlined is-link is-light is-rounded">
+            <mat-icon>share</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END OF AVG GENDERS -->
+
+    <!-- START OF ??? -->
+    <div class="column is-6">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon">
+              <mat-icon>device_unknown</mat-icon>
+            </span>
+            <span style="position:relative; top:2px;">&ensp;??? Chart</span>
+          </p>
+        </header>
+
+        <div class="card-content">
+          <a id="shareButton" routerLink="#" class="button is-small is-outlined is-link is-light is-rounded">
+            <mat-icon>share</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- END OF ??? -->
+
+    <div class="column is-full">
+
+      <!-- START OF LIST OF EMPLOYEES -->
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
@@ -138,19 +251,19 @@
                 <td class="is-actions-cell">
                   <div class="buttons is-right no-wrap">
                     <!-- EDIT -->
-                    <a routerLink="#" class="button is-small is-primary">
+                    <a routerLink="#" class="button is-small is-primary is-rounded">
                       <mat-icon>edit</mat-icon>
                     </a>
 
                     <!-- DELETE -->
-                    <button type="button" class="button is-small is-danger">
+                    <button type="button" class="button is-small is-danger is-rounded">
                       <span>
                         <mat-icon>delete</mat-icon>
                       </span>
                     </button>
 
                     <!-- SHARE -->
-                    <a routerLink="#" class="button is-small is-link">
+                    <a routerLink="#" class="button is-small is-link is-rounded">
                       <mat-icon>share</mat-icon>
                     </a>
                   </div>
@@ -180,19 +293,19 @@
                 <td class="is-actions-cell">
                   <div class="buttons is-right no-wrap">
                     <!-- EDIT -->
-                    <a routerLink="#" class="button is-small is-primary">
+                    <a routerLink="#" class="button is-small is-primary is-rounded">
                       <mat-icon>edit</mat-icon>
                     </a>
 
                     <!-- DELETE -->
-                    <button type="button" class="button is-small is-danger">
+                    <button type="button" class="button is-small is-danger is-rounded">
                       <span>
                         <mat-icon>delete</mat-icon>
                       </span>
                     </button>
 
                     <!-- SHARE -->
-                    <a routerLink="#" class="button is-small is-link">
+                    <a routerLink="#" class="button is-small is-link is-rounded">
                       <mat-icon>share</mat-icon>
                     </a>
                   </div>
@@ -208,6 +321,4 @@
     </div>
   </section>
   <!-- END OF LIST OF EMPLOYEES -->
-
-
 </div>
