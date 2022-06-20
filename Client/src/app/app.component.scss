@@ -1,5 +1,6 @@
 html {
   background-color: rgb(32, 29, 56);
+  height: 100vh;
 }
 
 body {
@@ -8,7 +9,6 @@ body {
   }
 
   .vhfooter {
-    position: relative;
-    top: 100vh;
+    padding: 2em 0em 0em;
   }
 }
