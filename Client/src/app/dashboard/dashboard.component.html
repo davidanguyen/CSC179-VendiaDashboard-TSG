@@ -1,6 +1,6 @@
 <div class="grid-item" class="allWidgets">
   <!-- BREADCRUMB -->
-  <div id = breadcrumb>
+  <div id="breadcrumb">
     <xng-breadcrumb class="xng-breadcrumb-root">
       <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
         <mat-icon class="ltgray-text" *ngIf="info">{{ info }}</mat-icon>
@@ -9,18 +9,205 @@
         </ng-container>
       </ng-container>
     </xng-breadcrumb>
-  </div><p></p>
+  </div>
+  <div style="height: 0.5em;"></div>
 
+  <!-- PAGE HEADER -->
   <div class="level mt-2 mr-2 content-title">
     <div class="level-left">
       <div class="level-item">
         <div class="title has-text-primary">
           <span class="icon-title">
-            <mat-icon class="white-text">dashboard</mat-icon>
+            <mat-icon class="white-text">{{ icon }}</mat-icon>
           </span>
-          <span class="white-text"> {{title}} </span>
+          <span class="white-text"> {{ title }} </span>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- USER WELCOME -->
+  <div class="hero-body hero-body-wc">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item is-hero-avatar-item">
+          <div class="image is-128x128">
+            <img class="is-rounded" src="assets/icons/greyUser.jpg" alt="temp icon">
+          </div>
+        </div>
+        <div class="level-item is-hero-content-item white-text">
+          <div>
+            <h1 class="title is-spaced white-text"> Welcome, <b>{{ username }}</b>!</h1>
+            <h3 class="subtitle white-text">Last login <b>{{ lastLoginTime }}</b> from <b>{{ lastIPAddress }}</b></h3>
+            <p>{{ randomQuote }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item"><a routerLink="#" class="button is-light" title="Profile">
+            <span class="icon">
+              <mat-icon>person</mat-icon>
+            </span>
+            <span>Manage profile</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- START OF GENDER CHART -->
+  <section>
+
+  </section>
+  <!-- END OF GENDER CHART -->
+
+  <!-- END OFLIST OF EMPLOYEES -->
+  <section class="hero-body-empl">
+    <div class="hero-body">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon">
+              <mat-icon>people</mat-icon>
+            </span>
+            <span style="position:relative; top:2px;">&ensp;Employees</span>
+          </p>
+        </header>
+
+        <div class="card-content">
+          <table class="table is-striped is-hoverable is-fullwidth">
+            <!---->
+            <thead>
+              <tr>
+                <th draggable="false" class="">
+                  <div>
+                    <span class="is-relative">
+                    </span>
+                  </div>
+                </th>
+                <!-- NAME -->
+                <th draggable="false" class="is-sortable is-unselectable is-current-sort">
+                  <div>
+                    <span class="is-relative">
+                      Name
+                    </span>
+                  </div>
+                </th>
+
+                <!-- CREATED -->
+                <th draggable="false" class="">
+                  <div>
+                    <span class="is-relative">
+                      Created
+                    </span>
+                  </div>
+                </th>
+                <!---->
+                <th draggable="false" class="">
+                  <div>
+                    <span class="is-relative">
+                      <span class="icon is-small is-invisible">
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                      </span>
+                    </span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+
+            <!-- CREATE USER -->
+            <tbody>
+              <tr draggable="false">
+                <td class="is-image-cell">
+                  <div class="image is-64x64">
+                    <img src="assets/icons/user1.png" class="is-rounded">
+                  </div>
+                </td>
+
+                <td data-label="Name">
+                  {{ emplName }}
+                </td>
+
+                <td data-label="Created">
+                  <small title="{{ emplCreated }}" class="has-text-grey">
+                    {{ emplCreated }}
+                  </small>
+                </td>
+
+                <!-- BUTTONS -->
+                <td class="is-actions-cell">
+                  <div class="buttons is-right no-wrap">
+                    <!-- EDIT -->
+                    <a routerLink="#" class="button is-small is-primary">
+                      <mat-icon>edit</mat-icon>
+                    </a>
+
+                    <!-- DELETE -->
+                    <button type="button" class="button is-small is-danger">
+                      <span>
+                        <mat-icon>delete</mat-icon>
+                      </span>
+                    </button>
+
+                    <!-- SHARE -->
+                    <a routerLink="#" class="button is-small is-link">
+                      <mat-icon>share</mat-icon>
+                    </a>
+                  </div>
+                </td>
+
+              </tr>
+
+              <!-- TEMP SAME USER -->
+              <tr draggable="false" class="">
+                <td class="is-image-cell">
+                  <div class="image is-64x64">
+                    <img src="assets/icons/user2.jpg" class="is-rounded">
+                  </div>
+                </td>
+
+                <td data-label="Name" class="">
+                  Johnny Appleseed
+                </td>
+
+                <td data-label="Created" class="">
+                  <small title="{{ emplCreated }}" class="has-text-grey">
+                    {{ emplCreated }}
+                  </small>
+                </td>
+
+                <!-- BUTTONS -->
+                <td class="is-actions-cell">
+                  <div class="buttons is-right no-wrap">
+                    <!-- EDIT -->
+                    <a routerLink="#" class="button is-small is-primary">
+                      <mat-icon>edit</mat-icon>
+                    </a>
+
+                    <!-- DELETE -->
+                    <button type="button" class="button is-small is-danger">
+                      <span>
+                        <mat-icon>delete</mat-icon>
+                      </span>
+                    </button>
+
+                    <!-- SHARE -->
+                    <a routerLink="#" class="button is-small is-link">
+                      <mat-icon>share</mat-icon>
+                    </a>
+                  </div>
+                </td>
+
+              </tr>
+            </tbody>
+            <!-- CREATE USER END -->
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END OF LIST OF EMPLOYEES -->
+
+
 </div>

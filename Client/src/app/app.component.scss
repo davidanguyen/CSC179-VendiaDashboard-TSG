@@ -1,17 +1,14 @@
-body {
+html {
   background-color: rgb(32, 29, 56);
-  height: auto;
+}
 
-  // take the header and sidebar into account
+body {
   .routerOut {
-    position: relative;
-    top: 64px !important;
+    z-index: 17;
   }
 
-  .routerInnerOut {
+  .vhfooter {
     position: relative;
-    left: 60px !important;
-    width: 97.9%;
-    z-index: 17;
+    top: 100vh;
   }
 }

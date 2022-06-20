@@ -1,1 +1,16 @@
+.hero-body-wc {
+  display: block;
+  background-color: rgb(32, 29, 56);
+  background-image: url("../../assets/backgrounds/welcomeBG.svg");
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+  right: 1em;
+  width: 97.6vw;
+}
 
+.hero-body-empl {
+  position: relative;
+  right: 3em;
+  width: 100vw;
+}

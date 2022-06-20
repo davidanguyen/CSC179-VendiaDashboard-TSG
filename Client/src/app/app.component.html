@@ -1,4 +1,5 @@
 <!-- Build a general layout with headers and footers for all pages -->
+<html>
 
 <body>
   <!-- Header -->
@@ -7,12 +8,15 @@
   <!-- Sidebar -->
   <app-sidebar></app-sidebar>
 
-  <div class="routerOut">
-    <div class="routerInnerOut">
+    <!-- Route Injector -->
+    <div class="routerOut">
       <router-outlet></router-outlet>
     </div>
 
-    <!-- Footer -->
-    <app-footer></app-footer>
-  </div>
+    <div class="vhfooter">
+      <!-- Footer -->
+      <app-footer></app-footer>
+    </div>
 </body>
+
+</html>
