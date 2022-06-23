@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { FooterComponent } from './footer/footer.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FooterComponent } from './footer/footer.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatCardModule,
     BreadcrumbModule,
   ],
   providers: [],

@@ -91,9 +91,7 @@
   </section>
   <!-- END OF TILES -->
 
-
   <section class="columns is-centered is-multiline columns-vw">
-
     <!-- START OF RIGHT CARD -->
     <div class="column is-6">
       <div class="card">
@@ -185,6 +183,15 @@
             </span>
             <span style="position:relative; top:2px;">&ensp;Employees</span>
           </p>
+          <button type="button" class="button is-small is-link is-rounded"
+            style="position: relative; top:1.2em; right:3em;">
+            <span>
+              <mat-icon>add</mat-icon>
+              <span class="title is-6 white-text" style="position: relative; left: 1px; bottom: 5px;">
+                Add Employees
+              </span>
+            </span>
+          </button>
         </header>
 
         <div class="card-content">
@@ -231,7 +238,7 @@
             <!-- CREATE USER -->
             <tbody>
               <tr draggable="false">
-                <td class="is-image-cell">
+                <td>
                   <div class="image is-64x64">
                     <img src="assets/icons/user1.png" class="is-rounded">
                   </div>
@@ -261,53 +268,6 @@
                         <mat-icon>delete</mat-icon>
                       </span>
                     </button>
-
-                    <!-- SHARE -->
-                    <a routerLink="#" class="button is-small is-link is-rounded">
-                      <mat-icon>share</mat-icon>
-                    </a>
-                  </div>
-                </td>
-
-              </tr>
-
-              <!-- TEMP SAME USER -->
-              <tr draggable="false" class="">
-                <td class="is-image-cell">
-                  <div class="image is-64x64">
-                    <img src="assets/icons/user2.jpg" class="is-rounded">
-                  </div>
-                </td>
-
-                <td data-label="Name" class="">
-                  Johnny Appleseed
-                </td>
-
-                <td data-label="Created" class="">
-                  <small title="{{ emplCreated }}" class="has-text-grey">
-                    {{ emplCreated }}
-                  </small>
-                </td>
-
-                <!-- BUTTONS -->
-                <td class="is-actions-cell">
-                  <div class="buttons is-right no-wrap">
-                    <!-- EDIT -->
-                    <a routerLink="#" class="button is-small is-primary is-rounded">
-                      <mat-icon>edit</mat-icon>
-                    </a>
-
-                    <!-- DELETE -->
-                    <button type="button" class="button is-small is-danger is-rounded">
-                      <span>
-                        <mat-icon>delete</mat-icon>
-                      </span>
-                    </button>
-
-                    <!-- SHARE -->
-                    <a routerLink="#" class="button is-small is-link is-rounded">
-                      <mat-icon>share</mat-icon>
-                    </a>
                   </div>
                 </td>
 

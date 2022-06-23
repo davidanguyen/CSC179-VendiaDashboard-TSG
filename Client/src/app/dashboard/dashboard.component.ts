@@ -23,6 +23,13 @@ export class DashboardComponent implements OnInit {
   numMean: string = "000";
   numSD: string = "000";
 
+  showHide: boolean = true;
+
+  testButton() {
+    this.showHide = !this.showHide;
+    console.log("Pressed");
+  }
+
   constructor() { }
 
   ngOnInit(): void {
