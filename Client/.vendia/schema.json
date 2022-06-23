@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EmployeeDetails",
+  "description": "Dashboard of employee details",
+  "type": "object",
+  "properties": {
+    "EmployeeInfo": {
+      "type": "object",
+      "description": "Personal Information of Employees",
+      "properties": {
+        "First": {
+          "type": "string"
+        },
+        "Last": {
+          "type": "string"
+        },
+        "Age": {
+          "type": "integer"
+        },
+        "Gender": {
+          "type": "string"
+        }
+      }
+    },
+    "EmployeeHealth": {
+      "type": "object",
+      "description": "Health of Employees",
+      "properties": {
+        "Height": {
+          "type": "integer"
+        },
+        "Weight": {
+          "type": "integer"
+        },
+        "BodyTemp": {
+          "type": "integer"
+        },
+        "PulseRate": {
+          "type": "integer"
+        },
+        "BloodPressure": {
+          "type": "integer"
+        },
+        "RespirationRate": {
+          "type": "integer"
+        },
+        "ExcerciseAvgPerWeek": {
+          "type": "integer"
+        },
+        "VacationBalance": {
+          "type": "integer"
+        },
+        "WorkAvgPerWeek": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "EmployeeInfo",
+        "EmployeeHealth"
+      ]
+    }
+  }
+}
