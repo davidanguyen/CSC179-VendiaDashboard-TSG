@@ -44,10 +44,12 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(AddEmplModalComponent);
   }
 
+  // EDIT EMPLOYEE MODAL
   editEmplModal() {
     const dialogRef = this.dialog.open(EditEmplModalComponent);
   }
 
+  // SHARE STATS MODAL
   shareOverallModal() {
     const dialogRef = this.dialog.open(OverallShareModalComponent);
   }
