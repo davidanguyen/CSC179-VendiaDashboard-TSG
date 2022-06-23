@@ -143,9 +143,6 @@
         </header>
 
         <div class="card-content">
-          <a id="shareButton" routerLink="#" class="button is-small is-outlined is-link is-light is-rounded">
-            <mat-icon>share</mat-icon>
-          </a>
         </div>
       </div>
     </div>
@@ -164,9 +161,6 @@
         </header>
 
         <div class="card-content">
-          <a id="shareButton" routerLink="#" class="button is-small is-outlined is-link is-light is-rounded">
-            <mat-icon>share</mat-icon>
-          </a>
         </div>
       </div>
     </div>
@@ -183,8 +177,10 @@
             </span>
             <span style="position:relative; top:2px;">&ensp;Employees</span>
           </p>
-          <button type="button" class="button is-small is-link is-rounded"
-            style="position: relative; top:1.2em; right:3em;">
+
+          <!-- BUTTON ADD EMPL -->
+          <button mat-button type="button" class="button is-small is-link is-rounded"
+            style="position: relative; top:1.2em; right:3em;" (click)="addEmplModal()">
             <span>
               <mat-icon>add</mat-icon>
               <span class="title is-6 white-text" style="position: relative; left: 1px; bottom: 5px;">
@@ -192,6 +188,8 @@
               </span>
             </span>
           </button>
+          <!-- BUTTON ADD EMPL END -->
+
         </header>
 
         <div class="card-content">
@@ -258,12 +256,12 @@
                 <td class="is-actions-cell">
                   <div class="buttons is-right no-wrap">
                     <!-- EDIT -->
-                    <a routerLink="#" class="button is-small is-primary is-rounded">
+                    <button mat-button class="button is-small is-primary is-rounded">
                       <mat-icon>edit</mat-icon>
-                    </a>
+                    </button>
 
                     <!-- DELETE -->
-                    <button type="button" class="button is-small is-danger is-rounded">
+                    <button mat-button type="button" class="button is-small is-danger is-rounded">
                       <span>
                         <mat-icon>delete</mat-icon>
                       </span>

@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { MatDialog } from '@angular/material/dialog'
+
+// Import Modals
+import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component'
+import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component'
+import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component'
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +16,7 @@ export class DashboardComponent implements OnInit {
   // Properties
   title: string = "Dashboard";
   icon: string = "dashboard";
-  username: string = "Name"; // pass it in from header user
+  @Output() username: string = "Name"; // pass it in from header user
   lastLoginTime: string = "< time >";
   lastIPAddress: string = "< location >";
   randomQuote: string = "“Java is to JavaScript what Car is to Carpet.” – Chris Heilmann";
@@ -25,12 +31,26 @@ export class DashboardComponent implements OnInit {
 
   showHide: boolean = true;
 
+  constructor(
+    public dialog: MatDialog
+  ){}
+
   testButton() {
     this.showHide = !this.showHide;
-    console.log("Pressed");
   }
 
-  constructor() { }
+  // ADD EMPLOYEE MODAL
+  addEmplModal() {
+    const dialogRef = this.dialog.open(AddEmplModalComponent);
+  }
+
+  editEmplModal() {
+    const dialogRef = this.dialog.open(EditEmplModalComponent);
+  }
+
+  shareOverallModal() {
+    const dialogRef = this.dialog.open(OverallShareModalComponent);
+  }
 
   ngOnInit(): void {
     // Register all chart controllers
