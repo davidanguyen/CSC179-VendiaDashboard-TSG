@@ -166,7 +166,7 @@
     </div>
     <!-- END OF ??? -->
 
-    <div class="column is-full">
+    <section class="column is-full">
 
       <!-- START OF LIST OF EMPLOYEES -->
       <div class="card">
@@ -178,14 +178,11 @@
             <span style="position:relative; top:2px;">&ensp;Employees</span>
           </p>
 
-          <!-- BUTTON ADD EMPL -->
+          <!-- BUTTON ADD EMPL START -->
           <button mat-button type="button" class="button is-small is-link is-rounded"
             style="position: relative; top:1.2em; right:3em;" (click)="addEmplModal()">
-            <span>
-              <mat-icon>add</mat-icon>
-              <span class="title is-6 white-text" style="position: relative; left: 1px; bottom: 5px;">
-                Add Employees
-              </span>
+            <span class="subtitle is-6 white-text" style="position: relative; left: 1px; bottom: 5px;">
+              Add Employees
             </span>
           </button>
           <!-- BUTTON ADD EMPL END -->
@@ -193,90 +190,108 @@
         </header>
 
         <div class="card-content">
-          <table class="table is-striped is-hoverable is-fullwidth">
-            <!---->
-            <thead>
-              <tr>
-                <th draggable="false" class="">
-                  <div>
-                    <span class="is-relative">
-                    </span>
-                  </div>
-                </th>
-                <!-- NAME -->
-                <th draggable="false" class="is-sortable is-unselectable is-current-sort">
-                  <div>
-                    <span class="is-relative">
-                      Name
-                    </span>
-                  </div>
-                </th>
+          <table mat-table [dataSource]="dataSource" style="width:100%">
+            <!-- Position Column -->
+            <ng-container matColumnDef="pos">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Position">#.##</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.pos}}.00</td>
+            </ng-container>
 
-                <!-- CREATED -->
-                <th draggable="false" class="">
-                  <div>
-                    <span class="is-relative">
-                      Created
-                    </span>
-                  </div>
-                </th>
-                <!---->
-                <th draggable="false" class="">
-                  <div>
-                    <span class="is-relative">
-                      <span class="icon is-small is-invisible">
-                        <mat-icon>keyboard_arrow_up</mat-icon>
-                      </span>
-                    </span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let data">{{data.name}}</td>
+            </ng-container>
 
-            <!-- CREATE USER -->
-            <tbody>
-              <tr draggable="false">
-                <td>
-                  <div class="image is-64x64">
-                    <img src="assets/icons/user1.png" class="is-rounded">
-                  </div>
-                </td>
+            <!-- Age Column -->
+            <ng-container matColumnDef="age">
+              <th mat-header-cell *matHeaderCellDef>Age</th>
+              <td mat-cell *matCellDef="let data">{{data.age}}</td>
+            </ng-container>
 
-                <td data-label="Name">
-                  {{ emplName }}
-                </td>
+            <!-- Gender Column -->
+            <ng-container matColumnDef="gender">
+              <th mat-header-cell *matHeaderCellDef>Gender</th>
+              <td mat-cell *matCellDef="let data">{{data.gender}}</td>
+            </ng-container>
 
-                <td data-label="Created">
-                  <small title="{{ emplCreated }}" class="has-text-grey">
-                    {{ emplCreated }}
-                  </small>
-                </td>
+            <!-- Height Column -->
+            <ng-container matColumnDef="height">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Height">Ht.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.height}}</td>
+            </ng-container>
 
-                <!-- BUTTONS -->
-                <td class="is-actions-cell">
-                  <div class="buttons is-right no-wrap">
-                    <!-- EDIT -->
-                    <button mat-button class="button is-small is-primary is-rounded">
-                      <mat-icon>edit</mat-icon>
-                    </button>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Weight">Wt.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.weight}}</td>
+            </ng-container>
 
-                    <!-- DELETE -->
-                    <button mat-button type="button" class="button is-small is-danger is-rounded">
-                      <span>
-                        <mat-icon>delete</mat-icon>
-                      </span>
-                    </button>
-                  </div>
-                </td>
+            <!-- Body Temp Column -->
+            <ng-container matColumnDef="bodyTemp">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Body Temperature">BBT.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.bodyTemp}}</td>
+            </ng-container>
 
-              </tr>
-            </tbody>
-            <!-- CREATE USER END -->
+            <!-- Pulse Rate Column -->
+            <ng-container matColumnDef="pulseRate">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Pulse Rate">PR.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.pulseRate}}</td>
+            </ng-container>
 
+            <!-- Blood Pressure Column -->
+            <ng-container matColumnDef="bloodPressure">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Blood Pressure">BP.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.bloodPressure}}</td>
+            </ng-container>
+
+            <!-- Respiration Column -->
+            <ng-container matColumnDef="respirationRate">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Respiration Rate">RR.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.respirationRate}}</td>
+            </ng-container>
+
+            <!-- ExerciseAvg Column -->
+            <ng-container matColumnDef="exerciseAvg">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Avg Exercise Per Week">Avg Exercise</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.exerciseAvg}}</td>
+            </ng-container>
+
+            <!-- WorkAvg Column -->
+            <ng-container matColumnDef="workAvg">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Avg Work Per Week">Avg Work Hrs</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.workAvg}}</td>
+            </ng-container>
+
+            <!-- Vacation Column -->
+            <ng-container matColumnDef="vacationBalance">
+              <th mat-header-cell *matHeaderCellDef>
+                <abbr title="Vacation Balance">PTO.</abbr>
+              </th>
+              <td mat-cell *matCellDef="let data">{{data.vacationBalance}}</td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- END OF LIST OF EMPLOYEES -->
-</div>

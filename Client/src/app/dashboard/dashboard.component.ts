@@ -1,9 +1,60 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component';
 import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component';
 import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component';
+import { MatTable } from '@angular/material/table';
+
+
+export interface EmployeeData {
+  pos: number;
+  name: string;
+  age: number;
+  gender: string;
+  height: number;
+  weight: number;
+  bodyTemp: number;
+  pulseRate: number;
+  bloodPressure: number;
+  respirationRate: number;
+  exerciseAvg: number;
+  vacationBalance: number;
+  workAvg: number;
+}
+
+const EMPL_DATA: EmployeeData[] = [
+  {
+    pos: 1,
+    name: 'Zeus Josh',
+    age: 23,
+    gender: 'Male',
+    height: 1,
+    weight: 1,
+    bodyTemp: 1,
+    pulseRate: 1,
+    bloodPressure: 1,
+    respirationRate: 1,
+    exerciseAvg: 1,
+    vacationBalance: 1,
+    workAvg: 1
+  },
+  {
+    pos: 2,
+    name: 'Johnny Appleseed',
+    age: 44,
+    gender: 'Non-Binary/Non-Conforming',
+    height: 2,
+    weight: 2,
+    bodyTemp: 2,
+    pulseRate: 2,
+    bloodPressure: 2,
+    respirationRate: 2,
+    exerciseAvg: 2,
+    vacationBalance: 2,
+    workAvg: 2
+  },
+];
 
 
 @Component({
@@ -12,7 +63,6 @@ import { OverallShareModalComponent } from '../modalComponents/overall-share-mod
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   // Properties
   title: string = "Dashboard";
   icon: string = "dashboard";
@@ -29,15 +79,30 @@ export class DashboardComponent implements OnInit {
   numMean: string = "000";
   numSD: string = "000";
 
-  showHide: boolean = true;
+  // Table Init
+  displayedColumns: string[] = [
+    'pos', 'name', 'age',
+    'height', 'weight', 'bodyTemp',
+    'pulseRate', 'bloodPressure',
+    'respirationRate','vacationBalance',
+    'exerciseAvg', 'workAvg',
+  ];
+  dataSource = [...EMPL_DATA];
+
+  @ViewChild(MatTable) table!: MatTable<EmployeeData>;
 
   constructor(
     public dialog: MatDialog,
-  ){}
+  ) { }
 
-  testButton() {
-    this.showHide = !this.showHide;
+  addData() {
   }
+
+  removeData() {
+    this.dataSource.pop();
+    this.table.renderRows();
+  }
+
 
   // ADD EMPLOYEE MODAL
   addEmplModal() {
