@@ -1,11 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog';
+import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component';
+import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component';
+import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component';
 
-// Import Modals
-import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component'
-import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component'
-import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component'
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +12,11 @@ import { OverallShareModalComponent } from '../modalComponents/overall-share-mod
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   // Properties
   title: string = "Dashboard";
   icon: string = "dashboard";
-  @Output() username: string = "Name"; // pass it in from header user
+  username: string = "Name"; // pass it in from header user
   lastLoginTime: string = "< time >";
   lastIPAddress: string = "< location >";
   randomQuote: string = "“Java is to JavaScript what Car is to Carpet.” – Chris Heilmann";
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   showHide: boolean = true;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ){}
 
   testButton() {

@@ -1,1 +1,127 @@
-<p>add-empl-modal works!</p>
+<div class="container box container-edit stepperAndContainer">
+
+  <section class="hero box is-info">
+    <div class="hero-body">
+      <p class="title is-1">
+        Add Employee
+      </p>
+      <p class="subtitle is-6">
+        Fill out the information in the following form to add an employee.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <mat-stepper [linear]="true" orientation="vertical" class="stepperAndContainer" #stepper>
+      <mat-step [stepControl]="firstFormGroup" errorMessage="Missing required information.">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Personal Information</ng-template>
+          <br>
+          <mat-form-field appearance="fill" [style.width.px]=300>
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstCtrl" required>
+          </mat-form-field>
+
+          <mat-form-field class="ml-4" appearance="fill" [style.width.px]=300>
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="firstCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" [style.width.px]=250>
+            <mat-label>Select Gender</mat-label>
+            <mat-select formControlName="firstCtrl" required>
+              <mat-option value="0"></mat-option>
+              <mat-option value="1">Male</mat-option>
+              <mat-option value="2">Female</mat-option>
+              <mat-option value="3">Transgender</mat-option>
+              <mat-option value="4">Non-Binary/Non-Conforming</mat-option>
+              <mat-option value="5">Prefer not to respond</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" errorMessage="Missing required information.">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Health Information</ng-template>
+          <br>
+          <mat-form-field appearance="fill" [style.width.px]=110 floatLabel="always">
+            <mat-label>Height</mat-label>
+            <input matInput placeholder="Inch" formControlName="secondCtrl" required>
+          </mat-form-field>
+
+          <mat-form-field class="ml-4" appearance="fill" [style.width.px]=110 floatLabel="always">
+            <mat-label>Weight</mat-label>
+            <input matInput placeholder="LBs" formControlName="secondCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" [style.width.px]=236 floatLabel="always">
+            <mat-label>Body Temperature</mat-label>
+            <input matInput placeholder="F°" formControlName="secondCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" [style.width.px]=110 floatLabel="always">
+            <mat-label>Pulse Rate</mat-label>
+            <input matInput placeholder="Beats per min." formControlName="secondCtrl" required>
+          </mat-form-field>
+
+          <mat-form-field class="ml-4" appearance="fill" [style.width.px]=110 floatLabel="always">
+            <mat-label>Blood Pressure</mat-label>
+            <input matInput placeholder="mm Hg" formControlName="secondCtrl" required>
+          </mat-form-field>
+
+          <mat-form-field class="ml-4" appearance="fill" [style.width.px]=140 floatLabel="always">
+            <mat-label>Respiration Rate</mat-label>
+            <input matInput placeholder="Breaths per min." formControlName="secondCtrl" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" floatLabel="always" [style.width.px]=>
+            <mat-label>Avg Hours of Work</mat-label>
+            <input matInput placeholder="Avg Hours Per Week" formControlName="secondCtrl" required>
+          </mat-form-field>
+
+          <mat-form-field class="ml-4" appearance="fill" floatLabel="always" [style.width.px]=>
+            <mat-label>Avg Hours of Exercise</mat-label>
+            <input matInput placeholder="Avg Hours Per Week" formControlName="secondCtrl" required>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup" errorMessage="Missing required information.">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Other Information</ng-template>
+          <br>
+          <mat-form-field appearance="fill" floatLabel="always" [style.width.px]=>
+            <mat-label>Vacation Balance</mat-label>
+            <input matInput placeholder="Vacation Hours" formControlName="thirdCtrl" required>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <br>
+        <div>
+          <button mat-button class="button is-light" matStepperPrevious>Back</button>
+          <button mat-button class="button is-primary is-light" (click)="submitEmployeeDetails()">Submit</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </section>
+</div>
