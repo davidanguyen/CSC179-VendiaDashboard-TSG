@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Zeus Josh",
+    "age": 23,
+    "gender": "Male",
+    "height": 69,
+    "weight": 140,
+    "bodyTemp": 95,
+    "pulseRate": 120,
+    "bloodPressure": 80,
+    "respirationRate": 23,
+    "exerciseAvg": 10,
+    "vacationBalance": 45,
+    "workAvg": 30,
+    "action": ""
+  },
+  {
+    "id": 2,
+    "name": "Johnny Appleseed",
+    "age": 31,
+    "gender": "Transgender",
+    "height": 67,
+    "weight": 160,
+    "bodyTemp": 90,
+    "pulseRate": 80,
+    "bloodPressure": 56,
+    "respirationRate": 79,
+    "exerciseAvg": 6,
+    "vacationBalance": 10,
+    "workAvg": 8,
+    "action": ""
+  }
+]

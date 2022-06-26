@@ -35,3 +35,15 @@
   top: 5em;
 }
 
+.mat-header-cell {
+  vertical-align: bottom !important;
+  font-size: 15px;
+}
+
+.mat-cell {
+  vertical-align: text-bottom !important;
+}
+
+mat-tab-group {
+  overflow: hidden !important;
+}
