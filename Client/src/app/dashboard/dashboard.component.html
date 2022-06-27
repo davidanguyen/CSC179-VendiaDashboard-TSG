@@ -51,9 +51,9 @@
           </button>
         </div>
         <div id="overallShare" class="level-item">
-          <a routerLink="#" class="button is-small is-ghost">
-            <mat-icon class="white-text">share</mat-icon>
-          </a>
+          <button mat-button class="button is-small is-ghost" (click)="shareOverallModal()">
+            <mat-icon class="white-text" style="position: relative; bottom:0.2em;">share</mat-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -324,7 +324,8 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let data" class="action-link">
-                <a (click)="addData()" style="color:rgba(32, 29, 56, 0.781)">
+
+                <a (click)="editEmplModal()" style="color:rgba(32, 29, 56, 0.781)">
                   <mat-icon>edit</mat-icon>
                 </a>
 
