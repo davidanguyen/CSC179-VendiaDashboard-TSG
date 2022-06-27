@@ -1,63 +1,89 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "EmployeeDetails",
-  "description": "Dashboard of employee details",
+  "title": "Employee",
+  "description": "Detailed List of Employees",
   "type": "object",
   "properties": {
-    "EmployeeInfo": {
-      "type": "object",
-      "description": "Personal Information of Employees",
-      "properties": {
-        "First": {
-          "type": "string"
+    "Employees": {
+      "description": "Employee Details",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "EmployeeID": {
+            "description": "Unique identifier for an employee",
+            "type": "integer"
+          },
+          "First": {
+            "description": "First name of employee",
+            "type": "string"
+          },
+          "Last": {
+            "description": "Last name of employee",
+            "type": "string"
+          },
+          "Age": {
+            "description": "Age of employee",
+            "type": "integer"
+          },
+          "Gender": {
+            "description": "Gender of employee",
+            "type": "string"
+          },
+          "Height": {
+            "description": "Height of employee",
+            "type": "integer"
+          },
+          "Weight": {
+            "description": "Weight of employee",
+            "type": "integer"
+          },
+          "BodyTemp": {
+            "description": "Body Temperature of employee",
+            "type": "integer"
+          },
+          "PulseRate": {
+            "description": "Pulse Rate of employee",
+            "type": "integer"
+          },
+          "BloodPressure": {
+            "description": "Blood Pressure of employee",
+            "type": "integer"
+          },
+          "RespirationRate": {
+            "description": "Respiration Rate of employee",
+            "type": "integer"
+          },
+          "ExcerciseAvgPerWeek": {
+            "description": "Average Excercise of employee",
+            "type": "integer"
+          },
+          "WorkAvgPerWeek": {
+            "description": "Work Average of employee",
+            "type": "integer"
+          },
+          "VacationBalance": {
+            "description": "Vacation Balance of employee",
+            "type": "integer"
+          }
         },
-        "Last": {
-          "type": "string"
-        },
-        "Age": {
-          "type": "integer"
-        },
-        "Gender": {
-          "type": "string"
-        }
+        "required": [
+          "EmployeeID",
+          "First",
+          "Last",
+          "Age",
+          "Gender",
+          "Height",
+          "Weight",
+          "BodyTemp",
+          "PulseRate",
+          "BloodPressure",
+          "RespirationRate",
+          "ExcerciseAvgPerWeek",
+          "WorkAvgPerWeek",
+          "VacationBalance"
+        ]
       }
-    },
-    "EmployeeHealth": {
-      "type": "object",
-      "description": "Health of Employees",
-      "properties": {
-        "Height": {
-          "type": "integer"
-        },
-        "Weight": {
-          "type": "integer"
-        },
-        "BodyTemp": {
-          "type": "integer"
-        },
-        "PulseRate": {
-          "type": "integer"
-        },
-        "BloodPressure": {
-          "type": "integer"
-        },
-        "RespirationRate": {
-          "type": "integer"
-        },
-        "ExcerciseAvgPerWeek": {
-          "type": "integer"
-        },
-        "VacationBalance": {
-          "type": "integer"
-        },
-        "WorkAvgPerWeek": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "EmployeeInfo",
-        "EmployeeHealth"
-      ]
     }
   }
 }

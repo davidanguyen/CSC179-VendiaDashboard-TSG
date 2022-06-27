@@ -194,41 +194,77 @@ enum Vendia_SyncMode {
   ASYNC
 }
 
-input Self_EmployeeHealth_ConditionInput_ {
+input Self_Employees_ConditionInput_ {
+  Age: Vendia_ModelIntInput_
   BloodPressure: Vendia_ModelIntInput_
   BodyTemp: Vendia_ModelIntInput_
+  EmployeeID: Vendia_ModelIntInput_
   ExcerciseAvgPerWeek: Vendia_ModelIntInput_
+  First: Vendia_ModelStringInput_
+  Gender: Vendia_ModelStringInput_
   Height: Vendia_ModelIntInput_
+  Last: Vendia_ModelStringInput_
   PulseRate: Vendia_ModelIntInput_
   RespirationRate: Vendia_ModelIntInput_
   VacationBalance: Vendia_ModelIntInput_
   Weight: Vendia_ModelIntInput_
   WorkAvgPerWeek: Vendia_ModelIntInput_
-  _and: [Self_EmployeeHealth_ConditionInput_]
-  _or: [Self_EmployeeHealth_ConditionInput_]
-  _not: Self_EmployeeHealth_ConditionInput_
+  _and: [Self_Employees_ConditionInput_]
+  _or: [Self_Employees_ConditionInput_]
+  _not: Self_Employees_ConditionInput_
 }
 
-input Self_EmployeeHealth_FilterInput_ {
+input Self_Employees_FilterInput_ {
+  _id: Vendia_ModelIDInput_
+  Age: Vendia_ModelIntInput_
   BloodPressure: Vendia_ModelIntInput_
   BodyTemp: Vendia_ModelIntInput_
+  EmployeeID: Vendia_ModelIntInput_
   ExcerciseAvgPerWeek: Vendia_ModelIntInput_
+  First: Vendia_ModelStringInput_
+  Gender: Vendia_ModelStringInput_
   Height: Vendia_ModelIntInput_
+  Last: Vendia_ModelStringInput_
   PulseRate: Vendia_ModelIntInput_
   RespirationRate: Vendia_ModelIntInput_
   VacationBalance: Vendia_ModelIntInput_
   Weight: Vendia_ModelIntInput_
   WorkAvgPerWeek: Vendia_ModelIntInput_
-  _and: [Self_EmployeeHealth_FilterInput_]
-  _or: [Self_EmployeeHealth_FilterInput_]
-  _not: Self_EmployeeHealth_FilterInput_
+  _and: [Self_Employees_FilterInput_]
+  _or: [Self_Employees_FilterInput_]
+  _not: Self_Employees_FilterInput_
 }
 
-type Self_EmployeeHealth {
+type Self_Employees {
+  _id: ID!
+  Age: Int!
+  BloodPressure: Int!
+  BodyTemp: Int!
+  EmployeeID: Int!
+  ExcerciseAvgPerWeek: Int!
+  First: String!
+  Gender: String!
+  Height: Int!
+  Last: String!
+  PulseRate: Int!
+  RespirationRate: Int!
+  VacationBalance: Int!
+  Weight: Int!
+  WorkAvgPerWeek: Int!
+  _owner: String
+}
+
+type Self_Employees_Partial_ {
+  _id: ID!
+  Age: Int
   BloodPressure: Int
   BodyTemp: Int
+  EmployeeID: Int
   ExcerciseAvgPerWeek: Int
+  First: String
+  Gender: String
   Height: Int
+  Last: String
   PulseRate: Int
   RespirationRate: Int
   VacationBalance: Int
@@ -237,38 +273,54 @@ type Self_EmployeeHealth {
   _owner: String
 }
 
-type Self_EmployeeHealth_Partial_ {
-  BloodPressure: Int
-  BodyTemp: Int
-  ExcerciseAvgPerWeek: Int
-  Height: Int
-  PulseRate: Int
-  RespirationRate: Int
-  VacationBalance: Int
-  Weight: Int
-  WorkAvgPerWeek: Int
-  _owner: String
-}
+union Self_Employees_PartialUnion_ = Self_Employees | Self_Employees_Partial_
 
-type Self_EmployeeHealth_Result_ {
+type Self_Employees_Result_ {
   error: String
-  result: Self_EmployeeHealth
+  result: Self_Employees
 }
 
-type Self_EmployeeHealth_Transaction_Result_ {
+type Self_Employees_Transaction_Result_ {
   transaction: Vendia_Transaction!
-  result: Self_EmployeeHealth
+  result: Self_Employees
 }
 
-type Self_EmployeeHealth_Delete_Transaction_Result_ {
+type Self_Employees_Delete_Transaction_Result_ {
   transaction: Vendia_Transaction!
 }
 
-input Self_EmployeeHealth_Input_ {
+type Self_Employees_Connection_ {
+  _EmployeesItems: [Self_Employees]
+  nextToken: String
+}
+
+input Self_Employees_Input_ {
+  Age: Int!
+  BloodPressure: Int!
+  BodyTemp: Int!
+  EmployeeID: Int!
+  ExcerciseAvgPerWeek: Int!
+  First: String!
+  Gender: String!
+  Height: Int!
+  Last: String!
+  PulseRate: Int!
+  RespirationRate: Int!
+  VacationBalance: Int!
+  Weight: Int!
+  WorkAvgPerWeek: Int!
+}
+
+input Self_Employees_UpdateInput_ {
+  Age: Int
   BloodPressure: Int
   BodyTemp: Int
+  EmployeeID: Int
   ExcerciseAvgPerWeek: Int
+  First: String
+  Gender: String
   Height: Int
+  Last: String
   PulseRate: Int
   RespirationRate: Int
   VacationBalance: Int
@@ -276,104 +328,22 @@ input Self_EmployeeHealth_Input_ {
   WorkAvgPerWeek: Int
 }
 
-input Self_EmployeeHealth_UpdateInput_ {
+input Self_Employees_PartialInput_ {
+  Age: Int
   BloodPressure: Int
   BodyTemp: Int
+  EmployeeID: Int
   ExcerciseAvgPerWeek: Int
+  First: String
+  Gender: String
   Height: Int
+  Last: String
   PulseRate: Int
   RespirationRate: Int
   VacationBalance: Int
   Weight: Int
   WorkAvgPerWeek: Int
 }
-
-input Self_EmployeeHealth_PartialInput_ {
-  BloodPressure: Int
-  BodyTemp: Int
-  ExcerciseAvgPerWeek: Int
-  Height: Int
-  PulseRate: Int
-  RespirationRate: Int
-  VacationBalance: Int
-  Weight: Int
-  WorkAvgPerWeek: Int
-}
-
-union Self_EmployeeHealth_PartialUnion_ = Self_EmployeeHealth | Self_EmployeeHealth_Partial_
-
-input Self_EmployeeInfo_ConditionInput_ {
-  Age: Vendia_ModelIntInput_
-  First: Vendia_ModelStringInput_
-  Gender: Vendia_ModelStringInput_
-  Last: Vendia_ModelStringInput_
-  _and: [Self_EmployeeInfo_ConditionInput_]
-  _or: [Self_EmployeeInfo_ConditionInput_]
-  _not: Self_EmployeeInfo_ConditionInput_
-}
-
-input Self_EmployeeInfo_FilterInput_ {
-  Age: Vendia_ModelIntInput_
-  First: Vendia_ModelStringInput_
-  Gender: Vendia_ModelStringInput_
-  Last: Vendia_ModelStringInput_
-  _and: [Self_EmployeeInfo_FilterInput_]
-  _or: [Self_EmployeeInfo_FilterInput_]
-  _not: Self_EmployeeInfo_FilterInput_
-}
-
-type Self_EmployeeInfo {
-  Age: Int
-  First: String
-  Gender: String
-  Last: String
-  _owner: String
-}
-
-type Self_EmployeeInfo_Partial_ {
-  Age: Int
-  First: String
-  Gender: String
-  Last: String
-  _owner: String
-}
-
-type Self_EmployeeInfo_Result_ {
-  error: String
-  result: Self_EmployeeInfo
-}
-
-type Self_EmployeeInfo_Transaction_Result_ {
-  transaction: Vendia_Transaction!
-  result: Self_EmployeeInfo
-}
-
-type Self_EmployeeInfo_Delete_Transaction_Result_ {
-  transaction: Vendia_Transaction!
-}
-
-input Self_EmployeeInfo_Input_ {
-  Age: Int
-  First: String
-  Gender: String
-  Last: String
-}
-
-input Self_EmployeeInfo_UpdateInput_ {
-  Age: Int
-  First: String
-  Gender: String
-  Last: String
-}
-
-input Self_EmployeeInfo_PartialInput_ {
-  Age: Int
-  First: String
-  Gender: String
-  Last: String
-}
-
-union Self_EmployeeInfo_PartialUnion_ = Self_EmployeeInfo | Self_EmployeeInfo_Partial_
 
 input Vendia_Block_transactions_transactionsItem_ConditionInput_ {
   _id: Vendia_ModelStringInput_
@@ -2527,10 +2497,9 @@ input Vendia_Contract_InvokeInput_ {
 }
 
 type Query {
-  get_EmployeeHealth(version: Int): Self_EmployeeHealth
-  list_EmployeeHealthVersions(limit: Int, nextToken: String): Vendia_Version_Connection_
-  get_EmployeeInfo(version: Int): Self_EmployeeInfo
-  list_EmployeeInfoVersions(limit: Int, nextToken: String): Vendia_Version_Connection_
+  get_Employees(id: ID!, version: Int): Self_Employees
+  list_EmployeesItems(filter: Self_Employees_FilterInput_, limit: Int, nextToken: String): Self_Employees_Connection_
+  list_EmployeesVersions(id: ID!, limit: Int, nextToken: String): Vendia_Version_Connection_
   getVendia_Block(id: ID!): Vendia_Block
   listVendia_BlockItems(filter: Vendia_Block_FilterInput_, limit: Int, nextToken: String): Vendia_Block_Connection_
   getVendia_File(id: ID!, version: Int): Vendia_File
@@ -2556,22 +2525,14 @@ type Query {
 }
 
 type Mutation {
-  create_EmployeeHealth_async(input: Self_EmployeeHealth_Input_!): Vendia_Transaction_Result_
-  create_EmployeeHealth(input: Self_EmployeeHealth_Input_!, syncMode: Vendia_SyncMode!): Self_EmployeeHealth_Transaction_Result_
-  put_EmployeeHealth_async(input: Self_EmployeeHealth_Input_!, condition: Self_EmployeeHealth_ConditionInput_): Vendia_Transaction_Result_
-  put_EmployeeHealth(input: Self_EmployeeHealth_Input_!, condition: Self_EmployeeHealth_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeHealth_Transaction_Result_
-  update_EmployeeHealth_async(input: Self_EmployeeHealth_UpdateInput_!, condition: Self_EmployeeHealth_ConditionInput_): Vendia_Transaction_Result_
-  update_EmployeeHealth(input: Self_EmployeeHealth_UpdateInput_!, condition: Self_EmployeeHealth_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeHealth_Transaction_Result_
-  delete_EmployeeHealth_async(condition: Self_EmployeeHealth_ConditionInput_): Vendia_Transaction_Result_
-  delete_EmployeeHealth(condition: Self_EmployeeHealth_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeHealth_Delete_Transaction_Result_
-  create_EmployeeInfo_async(input: Self_EmployeeInfo_Input_!): Vendia_Transaction_Result_
-  create_EmployeeInfo(input: Self_EmployeeInfo_Input_!, syncMode: Vendia_SyncMode!): Self_EmployeeInfo_Transaction_Result_
-  put_EmployeeInfo_async(input: Self_EmployeeInfo_Input_!, condition: Self_EmployeeInfo_ConditionInput_): Vendia_Transaction_Result_
-  put_EmployeeInfo(input: Self_EmployeeInfo_Input_!, condition: Self_EmployeeInfo_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeInfo_Transaction_Result_
-  update_EmployeeInfo_async(input: Self_EmployeeInfo_UpdateInput_!, condition: Self_EmployeeInfo_ConditionInput_): Vendia_Transaction_Result_
-  update_EmployeeInfo(input: Self_EmployeeInfo_UpdateInput_!, condition: Self_EmployeeInfo_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeInfo_Transaction_Result_
-  delete_EmployeeInfo_async(condition: Self_EmployeeInfo_ConditionInput_): Vendia_Transaction_Result_
-  delete_EmployeeInfo(condition: Self_EmployeeInfo_ConditionInput_, syncMode: Vendia_SyncMode!): Self_EmployeeInfo_Delete_Transaction_Result_
+  add_Employees_async(input: Self_Employees_Input_!): Vendia_Transaction_Result_
+  add_Employees(input: Self_Employees_Input_!, syncMode: Vendia_SyncMode!): Self_Employees_Transaction_Result_
+  put_Employees_async(id: ID!, input: Self_Employees_Input_!, condition: Self_Employees_ConditionInput_): Vendia_Transaction_Result_
+  put_Employees(id: ID!, input: Self_Employees_Input_!, condition: Self_Employees_ConditionInput_, syncMode: Vendia_SyncMode!): Self_Employees_Transaction_Result_
+  update_Employees_async(id: ID!, input: Self_Employees_UpdateInput_!, condition: Self_Employees_ConditionInput_): Vendia_Transaction_Result_
+  update_Employees(id: ID!, input: Self_Employees_UpdateInput_!, condition: Self_Employees_ConditionInput_, syncMode: Vendia_SyncMode!): Self_Employees_Transaction_Result_
+  remove_Employees_async(id: ID!, condition: Self_Employees_ConditionInput_): Vendia_Transaction_Result_
+  remove_Employees(id: ID!, condition: Self_Employees_ConditionInput_, syncMode: Vendia_SyncMode!): Self_Employees_Delete_Transaction_Result_
   addVendia_File_async(input: Vendia_File_Input_!): Vendia_Transaction_Result_
   addVendia_File(input: Vendia_File_Input_!, syncMode: Vendia_SyncMode!): Vendia_File_Transaction_Result_
   putVendia_File_async(id: ID!, input: Vendia_File_Input_!, condition: Vendia_File_ConditionInput_): Vendia_Transaction_Result_
@@ -2608,12 +2569,9 @@ type Mutation {
 }
 
 type Subscription {
-  onCreate_EmployeeHealth: Self_EmployeeHealth_Result_
-  onUpdate_EmployeeHealth: Self_EmployeeHealth_Result_
-  onDelete_EmployeeHealth: Self_EmployeeHealth_Result_
-  onCreate_EmployeeInfo: Self_EmployeeInfo_Result_
-  onUpdate_EmployeeInfo: Self_EmployeeInfo_Result_
-  onDelete_EmployeeInfo: Self_EmployeeInfo_Result_
+  onAdd_Employees: Self_Employees_Result_
+  onUpdate_Employees: Self_Employees_Result_
+  onRemove_Employees: Self_Employees_Result_
   onAddVendia_Block: Vendia_Block_Result_
   onUpdateVendia_Block: Vendia_Block_Result_
   onRemoveVendia_Block: Vendia_Block_Result_

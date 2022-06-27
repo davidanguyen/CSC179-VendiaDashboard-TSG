@@ -43,7 +43,7 @@
       </div>
       <div class="level-right">
         <div class="level-item">
-          <button mat-button class="button is-light" title="Profile" style="position:relative;left:3em;">
+          <button mat-button (click)="devButton()" class="button is-light" title="Profile" style="position:relative;left:3em;">
             <span class="icon">
               <mat-icon>person</mat-icon>
             </span>
@@ -60,16 +60,50 @@
   </div>
   <br>
 
+  <!-- LOADING BAR IF DATA IS NULL -->
   <section class="box pt-0 px-0" style="width: 93.8vw;">
     <ng-container *ngIf="(asyncTabs | async) === null">
       <br>
       <p class="subtitle" style="padding-left:1em;"><b>Loading data...</b></p>
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
     </ng-container>
 
     <mat-tab-group mat-stretch-tabs selectedIndex="0" (selectedTabChange)="changeTab($event)" [color]="'primary'">
       <mat-tab class="mat-tab-body-content" *ngFor="let tab of asyncTabs | async">
         <ng-template mat-tab-label>{{ tab.label }}</ng-template>
+        <!-- START CHECK BOXES -->
+        <div [formGroup]="genderDataSelection">
+          <div class="buttons is-small has-addons is-centered p-0">
+            <button class="button is-white p-2">
+              <mat-checkbox formControlName="sMale">
+                Male
+              </mat-checkbox>
+            </button>
+            <button class="button is-white p-2">
+              <mat-checkbox formControlName="sFemale">
+                Female
+              </mat-checkbox>
+            </button>
+            <button class="button is-white p-2">
+              <mat-checkbox formControlName="sTransgender">
+                Transgender
+              </mat-checkbox>
+            </button>
+            <button class="button is-white p-2">
+              <mat-checkbox formControlName="sNonBinary">
+                NonBinary
+              </mat-checkbox>
+            </button>
+            <button class="button is-white p-2">
+              <mat-checkbox formControlName="sNoResponse">
+                Prefer No Response
+              </mat-checkbox>
+            </button>
+          </div>
+
+        </div>
+        <!-- END CHECK BOXES -->
+
         <!-- START OF DYNAMIC TILES -->
         <div class="tile is-ancestor has-text-centered columns-vw"
           style="padding: 1em 0em 1em; width: 73em; position:relative; left: 1em;">
@@ -127,6 +161,9 @@
         </header>
 
         <div class="card-content">
+          <ng-container *ngIf="isLoading">
+            <mat-spinner style="position:relative; left:35%; top: 12em;"></mat-spinner>
+          </ng-container>
           <canvas id="genderPie" width="400" height="430"></canvas>
         </div>
       </div>
@@ -146,6 +183,9 @@
         </header>
 
         <div class="card-content">
+          <ng-container *ngIf="isLoading">
+            <mat-spinner style="position:relative; left:35%; top: 12em;"></mat-spinner>
+          </ng-container>
           <canvas id="genderBar" width="400" height="400"></canvas>
         </div>
       </div>
@@ -165,9 +205,9 @@
           </p>
 
           <!-- BUTTON ADD EMPL START -->
-          <button mat-button type="button" class="button is-small is-link is-rounded"
-            style="position: relative; top:1.2em; right:3em;" (click)="addEmplModal()">
-            <span class="subtitle is-6 white-text" style="position: relative; left: 1px; bottom: 5px;">
+          <button mat-raised-button type="button" class="button is-small is-rounded"
+            style="position: relative; top:1.2em; right:3em; background-color: #201D38;" (click)="addEmplModal()">
+            <span class="subtitle is-6 white-text" style="position: relative; left: 1px; bottom: 5px; font-weight: bold;">
               Add Employees
             </span>
           </button>
@@ -176,101 +216,108 @@
         </header>
 
         <div class="card-content">
+          <ng-container *ngIf="isLoading">
+            <p class="subtitle is-6" style="position: relative; top: 1.2em;"><b>Loading data...</b></p>
+            <mat-progress-bar mode="buffer"></mat-progress-bar>
+          </ng-container>
+
           <table class="table is-hoverable" mat-table [dataSource]="dataSource" style="width:100%">
             <!-- Position Column -->
-            <ng-container matColumnDef="id">
+            <ng-container matColumnDef="EmployeeID">
               <th mat-header-cell *matHeaderCellDef>ID</th>
-              <td mat-cell *matCellDef="let data">{{data.id}}.00</td>
+              <td mat-cell *matCellDef="let data">{{data.EmployeeID}}.00</td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let data">{{data.name}}</td>
+              <td mat-cell *matCellDef="let data">{{data.First}} {{data.Last}}</td>
             </ng-container>
 
             <!-- Age Column -->
-            <ng-container matColumnDef="age">
+            <ng-container matColumnDef="Age">
               <th mat-header-cell *matHeaderCellDef>Age</th>
-              <td mat-cell *matCellDef="let data">{{data.age}}</td>
+              <td mat-cell *matCellDef="let data">{{data.Age}}</td>
             </ng-container>
 
             <!-- Gender Column -->
-            <ng-container matColumnDef="gender">
+            <ng-container matColumnDef="Gender">
               <th mat-header-cell *matHeaderCellDef>Gender</th>
-              <td mat-cell *matCellDef="let data">{{data.gender}}</td>
+              <td mat-cell *matCellDef="let data">{{data.Gender}}</td>
             </ng-container>
 
             <!-- Height Column -->
-            <ng-container matColumnDef="height">
+            <ng-container matColumnDef="Height">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Height">Ht.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.height}}</td>
+              <td mat-cell *matCellDef="let data">{{data.Height}}</td>
             </ng-container>
 
             <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
+            <ng-container matColumnDef="Weight">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Weight">Wt.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.weight}}</td>
+              <td mat-cell *matCellDef="let data">{{data.Weight}}</td>
             </ng-container>
 
             <!-- Body Temp Column -->
-            <ng-container matColumnDef="bodyTemp">
+            <ng-container matColumnDef="BodyTemp">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Body Temperature">BBT.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.bodyTemp}}</td>
+              <td mat-cell *matCellDef="let data">{{data.BodyTemp}}</td>
             </ng-container>
 
             <!-- Pulse Rate Column -->
-            <ng-container matColumnDef="pulseRate">
+            <ng-container matColumnDef="PulseRate">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Pulse Rate">PR.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.pulseRate}}</td>
+              <td mat-cell *matCellDef="let data">{{data.PulseRate}}</td>
             </ng-container>
 
             <!-- Blood Pressure Column -->
-            <ng-container matColumnDef="bloodPressure">
+            <ng-container matColumnDef="BloodPressure">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Blood Pressure">BP.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.bloodPressure}}</td>
+              <td mat-cell *matCellDef="let data">{{data.BloodPressure}}</td>
             </ng-container>
 
             <!-- Respiration Column -->
-            <ng-container matColumnDef="respirationRate">
+            <ng-container matColumnDef="RespirationRate">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Respiration Rate">RR.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.respirationRate}}</td>
+              <td mat-cell *matCellDef="let data">{{data.RespirationRate}}</td>
             </ng-container>
 
             <!-- ExerciseAvg Column -->
-            <ng-container matColumnDef="exerciseAvg">
+            <ng-container matColumnDef="ExcerciseAvgPerWeek">
               <th mat-header-cell *matHeaderCellDef>
-                <p class=""><abbr title="Avg Exercise Per Week">Avg E.</abbr></p>
+                <p style="position: relative; top: 11px;">
+                  <abbr title="Avg Exercise Per Week">Avg E.</abbr>
+                </p>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.exerciseAvg}}</td>
+              <td mat-cell *matCellDef="let data">{{data.ExcerciseAvgPerWeek}}</td>
             </ng-container>
 
             <!-- WorkAvg Column -->
-            <ng-container matColumnDef="workAvg">
+            <ng-container matColumnDef="WorkAvgPerWeek">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Avg Work Per Week">Avg Wrk.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.workAvg}}</td>
+              <td mat-cell *matCellDef="let data">{{data.WorkAvgPerWeek}}</td>
             </ng-container>
 
             <!-- Vacation Column -->
-            <ng-container matColumnDef="vacationBalance">
+            <ng-container matColumnDef="VacationBalance">
               <th mat-header-cell *matHeaderCellDef>
                 <abbr title="Vacation Balance">PTO.</abbr>
               </th>
-              <td mat-cell *matCellDef="let data">{{data.vacationBalance}}</td>
+              <td mat-cell *matCellDef="let data">{{data.VacationBalance}}</td>
             </ng-container>
 
             <!-- Info Column -->

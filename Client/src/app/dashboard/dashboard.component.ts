@@ -1,28 +1,32 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatTable } from '@angular/material/table';
+import { Observable, Observer } from 'rxjs';
 import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component';
 import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component';
 import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component';
-import { MatTable } from '@angular/material/table';
-import { Observable, Observer } from 'rxjs';
+import { client } from '../app.component'
+import { assertWrappingType, valueFromAST } from 'graphql';
+import { resultKeyNameFromField } from '@apollo/client/utilities';
 
-import employeesData from '../EmployeeData.json';
+const { entities } = client;
 
 export interface EmployeeData {
-  id: number;
+  EmployeeID: number;
   name: string;
-  age: number;
-  gender: string;
-  height: number;
-  weight: number;
-  bodyTemp: number;
-  pulseRate: number;
-  bloodPressure: number;
-  respirationRate: number;
-  exerciseAvg: number;
-  vacationBalance: number;
-  workAvg: number;
+  Age: number;
+  Gender: string;
+  Height: number;
+  Weight: number;
+  BodyTemp: number;
+  PulseRate: number;
+  BloodPressure: number;
+  RespirationRate: number;
+  ExcerciseAvgPerWeek: number;
+  WorkAvgPerWeek: number;
+  VacationBalance: number;
   action: string;
 }
 
@@ -34,14 +38,12 @@ export interface EmployeeCalcs {
   value4: number;
 }
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  EMPL_DATA: EmployeeData[] = employeesData;
   time = new Date();
 
   // Properties
@@ -50,14 +52,17 @@ export class DashboardComponent implements OnInit {
   username: string = "Name"; // pass it in from header user
   getTime: string = this.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   randomQuote: string = "“Java is to JavaScript what Car is to Carpet.” – Chris Heilmann";
-  numEmpl: number = this.EMPL_DATA.filter(x => x).length;
+  numEmpl?: number = 0;
+  isLoading: boolean = true;
 
+  // Tile Genders
+  genderDataSelection: FormGroup;
   allGenders: any;
   male: any;
   female: any;
   transgender: any;
   nonB: any;
-  noResponse: any;
+  noResponse?: any;
 
   // Mat Tab Tile Calcs
   tabIndex = 0;
@@ -65,17 +70,26 @@ export class DashboardComponent implements OnInit {
 
   // Table Init
   displayedColumns: string[] = [
-    'id', 'name', 'age',
-    'height', 'weight', 'vacationBalance',
-    'exerciseAvg', 'workAvg', 'action'
+    'EmployeeID', 'name', 'Age',
+    'Height', 'Weight', 'BodyTemp', 'PulseRate', 'BloodPressure',
+    'RespirationRate', 'ExcerciseAvgPerWeek',
+    'WorkAvgPerWeek', 'VacationBalance', 'action'
   ];
-  dataSource = [...this.EMPL_DATA];
-
-  @ViewChild(MatTable) table!: MatTable<EmployeeData>;
+  dataSource: any;
 
   constructor(
     public dialog: MatDialog,
+    private formBuilder: FormBuilder
   ) {
+    // Form for gender selection
+    this.genderDataSelection = this.formBuilder.group({
+      sMale: [true],
+      sFemale: [true],
+      sTransgender: [true],
+      sNonBinary: [true],
+      sNoResponse: [true],
+    });
+
     // Dynamic Tiles/MatTabs Start
     this.asyncTabs = new Observable((observer: Observer<EmployeeCalcs[]>) => {
       setTimeout(() => {
@@ -92,54 +106,32 @@ export class DashboardComponent implements OnInit {
           { label: 'Avg Work Hours', value1: 10, value2: 2, value3: 30, value4: 42 },
           { label: 'Vacation Balance', value1: 11, value2: 1, value3: 34, value4: 41 },
         ]);
-      }, 1000);
+      }, 500);
     });
     // Dynamic Tiles/MatTabs End
 
   }
 
-  changeTab(event: any) {
-    console.log(event.index);
-    this.tabIndex = event.index;
-  }
+  @ViewChild(MatTable) table!: MatTable<EmployeeData>;
 
-  addData() {
-    console.log("Test")
-  }
-
-  removeData() {
-    this.dataSource.pop();
-    this.table.renderRows();
-  }
-
-  // ADD EMPLOYEE MODAL
-  addEmplModal() {
-    const dialogRef = this.dialog.open(AddEmplModalComponent);
-  }
-
-  // EDIT EMPLOYEE MODAL
-  editEmplModal() {
-    const dialogRef = this.dialog.open(EditEmplModalComponent);
-  }
-
-  // SHARE STATS MODAL
-  shareOverallModal() {
-    const dialogRef = this.dialog.open(OverallShareModalComponent);
-  }
-
-  // LOAD EACH DATA FROM THE JSON
-  loadData() {
-    this.allGenders = this.EMPL_DATA.map(x => x.gender);
+  // LOAD EACH DATA FROM THE SERVER
+  loadData(data: any) {
+    this.numEmpl = data?.length;
+    this.dataSource = data?.map((x:any) => x);
+    this.allGenders = data?.map((x: any) => x.Gender);
     this.male = this.allGenders.filter((x: any) => x === "Male").length;
     this.female = this.allGenders.filter((x: any) => x === "Female").length;
     this.transgender = this.allGenders.filter((x: any) => x === "Transgender").length;
     this.nonB = this.allGenders.filter((x: any) => x === "Non-Binary/Non-Conforming").length;
     this.noResponse = this.allGenders.filter((x: any) => x === "Prefer not to respond").length;
+
+    this.isLoading = false;
   }
 
-  ngOnInit(): void {
-    // Load data first
-    this.loadData();
+  async ngOnInit(): Promise<void> {
+    //Load all the data first
+    const getData = await (await entities.employees.list()).items;
+    this.loadData(getData);
 
     // Register all chart controllers
     Chart.register(...registerables);
@@ -242,4 +234,71 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  async devButton() {
+    // console.log("Loading Data...");
+    // const addTest = await entities.employees.add(
+    //   {
+    //     EmployeeID: 2,
+    //     First: 'Zeus',
+    //     Last: 'Josh',
+    //     Age: 23,
+    //     Gender: 'Male',
+    //     Height: 67,
+    //     Weight: 140,
+    //     BodyTemp: 95,
+    //     PulseRate: 110,
+    //     BloodPressure: 80,
+    //     RespirationRate: 23,
+    //     ExcerciseAvgPerWeek: 10,
+    //     WorkAvgPerWeek: 10,
+    //     VacationBalance: 3,
+    //   }
+    // );
+  }
+
+  changeTab(event: any) {
+    console.log(event.index);
+    this.tabIndex = event.index;
+  }
+
+  addData() {
+  }
+
+  // ADD EMPLOYEE MODAL
+  addEmplModal() {
+    const dialogRef = this.dialog.open(AddEmplModalComponent);
+  }
+
+  // EDIT EMPLOYEE MODAL
+  editEmplModal() {
+    const dialogRef = this.dialog.open(EditEmplModalComponent);
+  }
+
+  // SHARE STATS MODAL
+  shareOverallModal() {
+    const dialogRef = this.dialog.open(OverallShareModalComponent);
+  }
+
+  // MATH FUNCTIONS
+  calcMean(terms: number) {
+    // m = sumofterms/numberofterms
+    var result;
+    return result;
+  }
+
+  calcMode() {
+    var result;
+    return result;
+  }
+
+  calcRange() {
+    // range = max-min
+    var result;
+    return result;
+  }
+
+  calcStdDev() {
+    var result;
+    return result;
+  }
 }

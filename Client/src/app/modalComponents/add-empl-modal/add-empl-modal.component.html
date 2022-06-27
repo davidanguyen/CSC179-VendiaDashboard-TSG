@@ -84,12 +84,7 @@
               <input matInput placeholder="Breaths per min." formControlName="secondCtrl" required id="respirationRate">
             </mat-form-field>
             <br>
-            <mat-form-field appearance="fill" floatLabel="always" [style.width.px]=>
-              <mat-label>Avg Hours of Work</mat-label>
-              <input matInput placeholder="Avg Hours Per Week" formControlName="secondCtrl" required id="workAvg">
-            </mat-form-field>
-
-            <mat-form-field class="ml-4" appearance="fill" floatLabel="always" [style.width.px]=>
+            <mat-form-field appearance="fill" floatLabel="always" [style.width.px]= 236>
               <mat-label>Avg Hours of Exercise</mat-label>
               <input matInput placeholder="Avg Hours Per Week" formControlName="secondCtrl" required id="exerciseAvg">
             </mat-form-field>
@@ -103,9 +98,14 @@
 
         <mat-step [stepControl]="thirdFormGroup" errorMessage="Missing required information.">
           <form [formGroup]="thirdFormGroup">
-            <ng-template matStepLabel>Other Information</ng-template>
+            <ng-template matStepLabel>Work Information</ng-template>
             <br>
-            <mat-form-field appearance="fill" floatLabel="always" [style.width.px]=>
+            <mat-form-field appearance="fill" floatLabel="always" [style.width.px]= 236>
+              <mat-label>Avg Hours of Work</mat-label>
+              <input matInput placeholder="Avg Hours Per Week" formControlName="secondCtrl" required id="workAvg">
+            </mat-form-field>
+
+            <mat-form-field class="ml-4" appearance="fill" floatLabel="always" [style.width.px]= 236>
               <mat-label>Vacation Balance</mat-label>
               <input matInput placeholder="Vacation Hours" formControlName="thirdCtrl" required>
             </mat-form-field>
