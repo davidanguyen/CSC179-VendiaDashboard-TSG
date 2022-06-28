@@ -43,7 +43,8 @@
       </div>
       <div class="level-right">
         <div class="level-item">
-          <button mat-button (click)="devButton()" class="button is-light" title="Profile" style="position:relative;left:3em;">
+          <button mat-button (click)="devButton()" class="button is-light" title="Profile"
+            style="position:relative;left:3em;">
             <span class="icon">
               <mat-icon>person</mat-icon>
             </span>
@@ -106,7 +107,7 @@
 
         <!-- START OF DYNAMIC TILES -->
         <div class="tile is-ancestor has-text-centered columns-vw"
-          style="padding: 1em 0em 1em; width: 73em; position:relative; left: 1em;">
+          style="padding: 1em 0em 1em; width: 93vw; position:relative; left: 1em;">
           <div class="tile is-parent">
             <div class="tile is-child box notification is-warning is-light">
               <p class="title">{{ numEmpl }}</p>
@@ -148,7 +149,7 @@
   </section>
 
   <section class="columns is-centered is-multiline columns-vw">
-    <!-- START OF RIGHT CARD -->
+    <!-- START OF LEFT CARD -->
     <div class="column is-6">
       <div class="card">
         <header class="card-header">
@@ -156,21 +157,23 @@
             <span class="icon">
               <mat-icon>donut_small</mat-icon>
             </span>
-            <span style="position:relative; top:2px;">&ensp;Employee's Gender Statistics</span>
+            <span style="position:relative; top:2px;">&ensp;Number of Gender</span>
           </p>
         </header>
 
         <div class="card-content">
           <ng-container *ngIf="isLoading">
-            <mat-spinner style="position:relative; left:35%; top: 12em;"></mat-spinner>
+            <mat-spinner style="position:relative; left:35%;"></mat-spinner>
           </ng-container>
-          <canvas id="genderPie" width="400" height="430"></canvas>
+          <div [hidden]="isLoading">
+            <canvas id="genderPie" width="400" height="430"></canvas>
+          </div>
         </div>
       </div>
     </div>
-    <!-- END OF RIGHT CARD -->
+    <!-- END OF LEFT CARD -->
 
-    <!-- START OF LEFT CARD -->
+    <!-- START OF RIGHT CARD -->
     <div class="column is-6">
       <div class="card">
         <header class="card-header">
@@ -184,13 +187,15 @@
 
         <div class="card-content">
           <ng-container *ngIf="isLoading">
-            <mat-spinner style="position:relative; left:35%; top: 12em;"></mat-spinner>
+            <mat-spinner style="position:relative; left:35%;"></mat-spinner>
           </ng-container>
-          <canvas id="genderBar" width="400" height="400"></canvas>
+          <div [hidden]="isLoading">
+            <canvas id="genderBar" width="400" height="400"></canvas>
+          </div>
         </div>
       </div>
     </div>
-    <!-- END OF LEFT CARD -->
+    <!-- END OF RIGHT CARD -->
 
     <section class="column is-full">
 
@@ -207,7 +212,8 @@
           <!-- BUTTON ADD EMPL START -->
           <button mat-raised-button type="button" class="button is-small is-rounded"
             style="position: relative; top:1.2em; right:3em; background-color: #201D38;" (click)="addEmplModal()">
-            <span class="subtitle is-6 white-text" style="position: relative; left: 1px; bottom: 5px; font-weight: bold;">
+            <span class="subtitle is-6 white-text"
+              style="position: relative; left: 1px; bottom: 5px; font-weight: bold;">
               Add Employees
             </span>
           </button>
@@ -221,7 +227,7 @@
             <mat-progress-bar mode="buffer"></mat-progress-bar>
           </ng-container>
 
-          <table class="table is-hoverable" mat-table [dataSource]="dataSource" style="width:100%">
+          <table class="table is-hoverable" mat-table [dataSource]="dataSource" [hidden]="isLoading" style="width:100%">
             <!-- Position Column -->
             <ng-container matColumnDef="EmployeeID">
               <th mat-header-cell *matHeaderCellDef>ID</th>

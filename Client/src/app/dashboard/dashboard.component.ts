@@ -235,25 +235,6 @@ export class DashboardComponent implements OnInit {
   }
 
   async devButton() {
-    // console.log("Loading Data...");
-    // const addTest = await entities.employees.add(
-    //   {
-    //     EmployeeID: 2,
-    //     First: 'Zeus',
-    //     Last: 'Josh',
-    //     Age: 23,
-    //     Gender: 'Male',
-    //     Height: 67,
-    //     Weight: 140,
-    //     BodyTemp: 95,
-    //     PulseRate: 110,
-    //     BloodPressure: 80,
-    //     RespirationRate: 23,
-    //     ExcerciseAvgPerWeek: 10,
-    //     WorkAvgPerWeek: 10,
-    //     VacationBalance: 3,
-    //   }
-    // );
   }
 
   changeTab(event: any) {
@@ -279,9 +260,10 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(OverallShareModalComponent);
   }
 
+  private _mean: number = 0;
+
   // MATH FUNCTIONS
-  calcMean(terms: number) {
-    // m = sumofterms/numberofterms
+  calcMean() {
     var result;
     return result;
   }

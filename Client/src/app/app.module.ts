@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { BreadcrumbModule } from "xng-breadcrumb";
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,6 +48,8 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    FormlyModule,
+    FormlyMaterialModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

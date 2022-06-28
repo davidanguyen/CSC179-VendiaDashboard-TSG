@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Check for data on Vendia, also check for connection.
-    console.log("" + client.entities.employees.list ? "Vendia Connection: Successful." : "Vendia ERR: Please check data.");
+    console.log("" + client.deployments.get ? "Vendia Connection: Successful." : "Vendia ERR: Please check data.");
   }
 }
 
