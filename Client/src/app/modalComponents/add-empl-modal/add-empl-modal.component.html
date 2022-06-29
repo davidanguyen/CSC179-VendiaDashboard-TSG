@@ -15,26 +15,26 @@
   <div>
     <ng-container *ngIf="isLoading">
       <mat-spinner style="position:relative; left:19vw;"></mat-spinner>
+      <br>
+      <p class="subtitle is-4" style="position:relative; left:18vw;
+        font-weight: 600;">Please wait...</p>
     </ng-container>
   </div>
 
-  <div [hidden]="isLoading" >
+  <div [hidden]="isLoading">
     <form [formGroup]="form" (ngSubmit)="submitEmployeeDetails()">
       <mat-stepper [linear]="true" orientation="vertical" class="stepperAndContainer" #stepper>
         <mat-step *ngFor="let step of stepperForm; let idx = index; let last = last;">
           <ng-template matStepLabel>{{ step.label }}</ng-template>
-          <formly-form
-          [form]="form.at(idx)"
-          [model]="submitModel"
-          [fields]="step.fields"
-          [options]="options[idx]">
-        </formly-form>
-        <br>
-        <div>
-          <button *ngIf="idx !== 0" mat-button matStepperPrevious (click)="prevStep(idx)" type="button">Back</button>
-          <button *ngIf="!last" mat-button matStepperNext [disabled]="!form.at(idx).valid" (click)="nextStep(idx)" type="button">Next</button>
-          <button *ngIf="last" mat-button matStepperNext [disabled]="!form.valid" type="submit">Submit</button>
-        </div>
+          <formly-form [form]="form.at(idx)" [model]="submitModel" [fields]="step.fields" [options]="options[idx]">
+          </formly-form>
+          <br>
+          <div>
+            <button *ngIf="idx !== 0" mat-button matStepperPrevious (click)="prevStep(idx)" type="button">Back</button>
+            <button *ngIf="!last" mat-button matStepperNext [disabled]="!form.at(idx).valid" (click)="nextStep(idx)"
+              type="button">Next</button>
+            <button *ngIf="last" mat-button matStepperNext [disabled]="!form.valid" type="submit">Submit</button>
+          </div>
         </mat-step>
       </mat-stepper>
     </form>

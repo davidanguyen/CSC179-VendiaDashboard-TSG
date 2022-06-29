@@ -1,14 +1,13 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
+import { FormArray, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 // Import the client to modal
 import { client } from '../../app.component';
-import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
-import { fieldNameFromStoreName } from '@apollo/client/cache';
-const { entities } = client;
+import { delay } from 'rxjs';
+const { entities, blocks } = client;
 
 export interface StepType {
   label: string;
@@ -23,36 +22,51 @@ export interface StepType {
 
 export class AddEmplModalComponent implements OnInit {
   checkStep: number = 0;
-  getLastEmplID: any;
-  getNextEmplID?: any;
   isLoading: boolean = false;
-  isLoading2: boolean = true;
 
-  // Set empty data for submission
-  submitModel = {};
+  // Set default values for VendiaSDK to work
+  submitModel = {
+    EmployeeID: 0,
+    First: '',
+    Last: '',
+    Age: 0,
+    Height: 0,
+    Weight: 0,
+    BloodPressure: 0,
+    BodyTemp: 0,
+    ExcerciseAvgPerWeek: 0,
+    Gender: '',
+    PulseRate: 0,
+    RespirationRate: 0,
+    VacationBalance: 0,
+    WorkAvgPerWeek: 0,
+  };
 
   async loadIndexData(data: any) {
+    // Pop the highest employee number
     var loadingData = data.map((x: any) => x.EmployeeID).sort((a: number, b: number) => a - b).pop();
-    this.getLastEmplID = loadingData;
-    this.getNextEmplID = loadingData + 1;
-    console.log(this.getNextEmplID);
+
+    // Sets next employeeID
+    this.submitModel.EmployeeID = loadingData + 1;
   }
 
   async submitEmployeeDetails(): Promise<void> {
-    // Load the data, get last index, increment the last found number
+    // Set loading to true once this is triggered
     this.isLoading = true;
-    console.log(this.submitModel); // EVERYTHING
-    // Submit the data into the server
-    //const addTest = await entities.employees.add(joinedObjects);
 
+    // Submit the data into the server
+    await entities.employees.add(this.submitModel);
+
+    // Set loading to false once data is loaded
     this.isLoading = false;
-    this._snackBar.open('Employee successfully added!', '', {
+
+    this._snackBar.open(`Employee ${this.submitModel.Last}, ${this.submitModel.First} has been added!`, '', {
       panelClass: ['snackbarSuccess'],
       horizontalPosition: 'end',
       verticalPosition: 'top',
-      duration: 5 * 1000,
+      duration: 6 * 1000,
     });
-
+    await delay(2*1000);
     this.dialog.closeAll();
   }
 
@@ -63,14 +77,16 @@ export class AddEmplModalComponent implements OnInit {
         {
           key: 'EmployeeID',
           type: 'input',
-          defaultValue: this.getNextEmplID,
+          modelOptions: {
+            updateOn: 'submit',
+          },
           templateOptions: {
             label: 'Employee ID',
             required: false,
             description: 'Automatically generated field',
             readonly: true,
           },
-          //hideExpression: 'true',
+          hideExpression: 'true',
         },
         {
           fieldGroupClassName: 'columns',
@@ -273,14 +289,11 @@ export class AddEmplModalComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar, public dialog: MatDialog,) { }
 
   async ngOnInit() {
-    console.log("loading.........")
+    console.log("Loading Data....")
+    this.isLoading = true;
     const getData = await (await entities.employees.list()).items;
     this.loadIndexData(getData);
-    console.log(this.getNextEmplID);
-    console.log(this.form);
-    this.isLoading2 = false;
-    this.form.controls[0].controls['EmployeeID'].value = this.getNextEmplID;
-
+    this.isLoading = false;
   }
 
 }
