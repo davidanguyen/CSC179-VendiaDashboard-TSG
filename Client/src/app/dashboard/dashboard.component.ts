@@ -8,8 +8,7 @@ import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-emp
 import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component';
 import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component';
 import { client } from '../app.component'
-import { assertWrappingType, valueFromAST } from 'graphql';
-import { resultKeyNameFromField } from '@apollo/client/utilities';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const { entities } = client;
 
@@ -41,7 +40,7 @@ export interface EmployeeCalcs {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss','./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   time = new Date();
@@ -54,6 +53,7 @@ export class DashboardComponent implements OnInit {
   randomQuote: string = "“Java is to JavaScript what Car is to Carpet.” – Chris Heilmann";
   numEmpl?: number = 0;
   isLoading: boolean = true;
+  isLoadingDash: boolean = false;
 
   // Tile Genders
   genderDataSelection: FormGroup;
@@ -79,7 +79,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {
     // Form for gender selection
     this.genderDataSelection = this.formBuilder.group({
@@ -117,7 +118,7 @@ export class DashboardComponent implements OnInit {
   // LOAD EACH DATA FROM THE SERVER
   loadData(data: any) {
     this.numEmpl = data?.length;
-    this.dataSource = data?.map((x:any) => x);
+    this.dataSource = data?.map((x: any) => x);
     this.allGenders = data?.map((x: any) => x.Gender);
     this.male = this.allGenders.filter((x: any) => x === "Male").length;
     this.female = this.allGenders.filter((x: any) => x === "Female").length;
@@ -126,6 +127,15 @@ export class DashboardComponent implements OnInit {
     this.noResponse = this.allGenders.filter((x: any) => x === "Prefer not to respond").length;
 
     this.isLoading = false;
+  }
+
+  // ALLOW TO RELOAD DATA IF NEW DATA IS IN
+  async reloadData() {
+    this.isLoading = true;
+
+    // get updated data from server
+    const getUpdatedData = await (await entities.employees.list()).items;
+    this.loadData(getUpdatedData);
   }
 
   async ngOnInit(): Promise<void> {
@@ -137,13 +147,20 @@ export class DashboardComponent implements OnInit {
     Chart.register(...registerables);
 
     // Charts
+    this.donutGenderChart();
+    this.allAvgChart();
+    // Charts End
+  }
+
+  // Doughnut chart that shows total number of each gender
+  donutGenderChart() {
     const doughnutCTX = 'genderPie';
-    const barCTX = 'genderBar';
+
     const genderData = {
       labels: ['Male', 'Female', 'Transgender', 'Non-Binary/Non-Conforming', 'Prefer not to respond'],
       datasets: [{
         label: 'Genders',
-        data: [this.male, this.female, this.transgender, this.nonB, this.noResponse], //insert data from server here
+        data: [this.male, this.female, this.transgender, this.nonB, this.noResponse],
         backgroundColor: [
           'rgb(54, 162, 235)',    // Male
           'rgb(255, 99, 132)',    // Female
@@ -155,6 +172,17 @@ export class DashboardComponent implements OnInit {
       }]
     };
 
+    const doughnutChart = new Chart(doughnutCTX, {
+      type: 'doughnut',
+      data: genderData,
+      options: {},
+      plugins: []
+    });
+  }
+
+  // Bar chart that shows all averages
+  allAvgChart() {
+    const barCTX = 'genderBar';
     const allData = {
       labels: ['Male', 'Female', 'Transgender', 'Non-Binary/Non-Conforming', 'Prefer not to respond'],
       datasets: [
@@ -210,14 +238,6 @@ export class DashboardComponent implements OnInit {
         }
       ]
     }
-
-    const doughnutChart = new Chart(doughnutCTX, {
-      type: 'doughnut',
-      data: genderData,
-      options: {},
-      plugins: []
-    });
-
     const barChart = new Chart(barCTX, {
       type: 'bar',
       data: allData,
@@ -230,19 +250,43 @@ export class DashboardComponent implements OnInit {
       },
       plugins: []
     });
-    // Charts End
-
   }
 
   async devButton() {
   }
 
   changeTab(event: any) {
-    console.log(event.index);
+    // console.log(event.index);
     this.tabIndex = event.index;
   }
 
-  addData() {
+  async deleteEmplData(id: any) {
+    // GET THE NAME OF EMPLOYEE FOR DISPLAY PURPOSES
+    var nameFirstEmpl = Object.keys(id).map((x) => [id[x]])[3].pop();
+    var nameLastEmpl = Object.keys(id).map((x) => [id[x]])[4].pop();
+
+    // GET THE _id OF SELECTED EMPLOYEE
+    var arrID = Object.keys(id).map((x) => [id[x]])[0].pop();
+
+    // SET LOADING TO SHOW THAT IT IS WORKING
+    this.isLoadingDash = true;
+
+    // DELETE EMPLOYEE NOW
+    await entities.employees.remove(arrID);
+
+    // TURN OFF LOADING
+    this.isLoadingDash = false;
+
+    // RELOAD THE DATA TO SHOW CHANGES
+    this.reloadData();
+
+    // SHOW THE GOOD O' SNACK BAR
+    this._snackBar.open(`Employee ${nameLastEmpl}, ${nameFirstEmpl} has been deleted.`, '', {
+      panelClass: ['snackbarDanger'],
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      duration: 6 * 1000,
+    });
   }
 
   // ADD EMPLOYEE MODAL
@@ -251,7 +295,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // EDIT EMPLOYEE MODAL
-  editEmplModal() {
+  editEmplModal(id: any) {
     const dialogRef = this.dialog.open(EditEmplModalComponent);
   }
 

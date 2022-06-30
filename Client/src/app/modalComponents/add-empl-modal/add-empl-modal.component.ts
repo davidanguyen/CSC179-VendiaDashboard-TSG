@@ -6,8 +6,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 
 // Import the client to modal
 import { client } from '../../app.component';
-import { delay } from 'rxjs';
-const { entities, blocks } = client;
+const { entities } = client;
 
 export interface StepType {
   label: string;
@@ -60,14 +59,14 @@ export class AddEmplModalComponent implements OnInit {
     // Set loading to false once data is loaded
     this.isLoading = false;
 
-    this._snackBar.open(`Employee ${this.submitModel.Last}, ${this.submitModel.First} has been added!`, '', {
+    this._snackBar.open(`Employee ${this.submitModel.Last}, ${this.submitModel.First} has been added.`, '', {
       panelClass: ['snackbarSuccess'],
       horizontalPosition: 'end',
       verticalPosition: 'top',
       duration: 6 * 1000,
     });
-    await delay(2*1000);
     this.dialog.closeAll();
+
   }
 
   stepperForm: StepType[] = [
@@ -289,7 +288,6 @@ export class AddEmplModalComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar, public dialog: MatDialog,) { }
 
   async ngOnInit() {
-    console.log("Loading Data....")
     this.isLoading = true;
     const getData = await (await entities.employees.list()).items;
     this.loadIndexData(getData);
