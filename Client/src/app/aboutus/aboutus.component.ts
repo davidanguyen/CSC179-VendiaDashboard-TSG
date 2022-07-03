@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-aboutus',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./aboutus.component.scss']
 })
 export class AboutusComponent implements OnInit {
+  
 
   constructor() { }
 
@@ -13,3 +15,5 @@ export class AboutusComponent implements OnInit {
   }
 
 }
+
+
