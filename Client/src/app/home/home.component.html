@@ -4,14 +4,59 @@
     <xng-breadcrumb class="xng-breadcrumb-root">
       <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info; let first = first">
         <mat-icon class="ltgray-text" *ngIf="info">{{ info }}</mat-icon>
-        <ng-container><p class="bc-text-fix ltgray-text">{{ breadcrumb }}</p></ng-container>
+        <ng-container><p class="bc-text-fix ltgray-text">{{ breadcrumb }}</p>
+        </ng-container>
       </ng-container>
     </xng-breadcrumb>
   </div><p></p>
 
   <!-- EDIT HERE KEEP INSIDE THE DIV -->
 
-  <b style="color:white">home component works!</b>
+  <b style="color:white">Vendia</b>
+
+    <!-- PAGE HEADER -->
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <div class="title">
+            <mat-icon class="iconTitle">{{ icon }}</mat-icon>
+            <span class="pageTitle"> {{ title }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+      <!-- USER WELCOME -->
+      <div class="hero-body hero-body-wc">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item is-hero-avatar-item">
+            </div>
+            <div class="level-item is-hero-content-item white-text">
+              <div>
+                <h1 class="title is-spaced white-text">Welcome, <b>{{ username }}</b>!</h1>
+              </div>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <button mat-button class="button is-light" title="Profile" style="position:relative;left:3em;">
+                <span class="icon">
+                  <mat-icon>person</mat-icon>
+                </span>
+                <span>Manage profile</span>
+              </button>
+            </div>
+            <div id="overallShare" class="level-item">
+              <a routerLink="#" class="button is-small is-ghost">
+                <mat-icon class="white-text">share</mat-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
 
   <!-- EDIT HERE KEEP INSIDE THE DIV END -->
 </div>
+

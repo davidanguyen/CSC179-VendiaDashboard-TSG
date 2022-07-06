@@ -1,1 +1,49 @@
-
+.hero-body-wc {
+    display: block;
+    background-color: rgb(32, 29, 56);
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    right: 1em;
+    width: 97.6vw;
+  }
+  
+  .columns-vw {
+    position: relative;
+    width: 94.7vw;
+  }
+  
+  .iconTitle {
+    font-size: 120%;
+    color: rgb(32, 29, 56);
+    position: relative;
+    top: 10px;
+    width: auto;
+    height: auto;
+    background-color: rgb(207, 200, 255);
+  }
+  
+  .pageTitle {
+    color: rgb(207, 200, 255);
+    position: relative;
+    top: 8px;
+  }
+  
+  #overallShare {
+    position: relative;
+    top: 5em;
+  }
+  
+  .mat-header-cell {
+    vertical-align: bottom !important;
+    font-size: 15px;
+  }
+  
+  .mat-cell {
+    vertical-align: text-bottom !important;
+  }
+  
+  mat-tab-group {
+    overflow: hidden !important;
+  }
+  

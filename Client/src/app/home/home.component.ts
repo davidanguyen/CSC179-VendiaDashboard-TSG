@@ -8,6 +8,11 @@ import { Chart } from 'chart.js';
 })
 export class HomeComponent implements OnInit {
 
+    // Properties
+    title: string = "Home Page";
+    icon: string = "homepage";
+    username: string = "Name"; // pass it in from header user
+
   constructor() { }
 
   ngOnInit(): void {
