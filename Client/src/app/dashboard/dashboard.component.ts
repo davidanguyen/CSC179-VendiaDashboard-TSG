@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
   username: string = "Name"; // pass it in from header user
   getTime: string = this.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
   randomQuote: string = "“Java is to JavaScript what Car is to Carpet.” – Chris Heilmann";
-  numEmpl?: number = 0;
+  numEmpl: number = 0;
   isLoading: boolean = true;
   isLoadingDash: boolean = false;
 
@@ -305,22 +305,32 @@ export class DashboardComponent implements OnInit {
   }
 
   // CONTROLLERS FOR GENDERS
-  genderController() {
-    // Check genders true/false
+  genderController(data: Array<any>) {
+    // Get genders true/false
+    let sMale = this.genderDataSelection.controls['sMale'].value;
+    let sFemale = this.genderDataSelection.controls['sFemale'].value;
+    let sTrans = this.genderDataSelection.controls['sTransgender'].value;
+    let sNonBinary = this.genderDataSelection.controls['sNonBinary'].value;
+    let sNoResp = this.genderDataSelection.controls['sNoResponse'].value;
+
     // combine array
-    //
-    //calcMean
+    // const genderArray = data.every()
+
+    // calcMean
   }
 
   // MATH FUNCTIONS
   calcMean(dataArr: Array<any>, type: string) {
     var result;
-    switch (type) {
-      case "Gender":
-        result = dataArr.reduce((x, y) => x + y[type], 0) / dataArr.length;
-        break;
-    }
-
+    // Gender: # of checked gender / total of employees
+    // Every Other: # of check gender's type / total of employees
+    // Need 2 arrays, a filtered array for checked genders and the number of employees
+    
+    // switch (type) {
+    //   case "Gender":
+    //     result = dataArr.reduce((x, y) => x + y.Gender, 0) / this.numEmpl;
+    //     break;
+    // }
     console.log(result);
     return result;
   }
