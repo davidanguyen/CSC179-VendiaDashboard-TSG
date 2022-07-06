@@ -3,12 +3,13 @@ import { Chart, registerables } from 'chart.js';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
-import { Observable, Observer } from 'rxjs';
+import { filter, Observable, Observer, reduce } from 'rxjs';
 import { AddEmplModalComponent } from '../modalComponents/add-empl-modal/add-empl-modal.component';
 import { EditEmplModalComponent } from '../modalComponents/edit-empl-modal/edit-empl-modal.component';
 import { OverallShareModalComponent } from '../modalComponents/overall-share-modal/overall-share-modal.component';
 import { client } from '../app.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UnaryOperatorExpr } from '@angular/compiler';
 
 const { entities } = client;
 
@@ -31,10 +32,10 @@ export interface EmployeeData {
 
 export interface EmployeeCalcs {
   label: string;
-  value1: number;
-  value2: number;
-  value3: number;
-  value4: number;
+  value1: any;
+  value2: any;
+  value3: any;
+  value4: any;
 }
 
 @Component({
@@ -54,6 +55,7 @@ export class DashboardComponent implements OnInit {
   numEmpl?: number = 0;
   isLoading: boolean = true;
   isLoadingDash: boolean = false;
+  gData?: any;
 
   // Tile Genders
   genderDataSelection: FormGroup;
@@ -66,21 +68,21 @@ export class DashboardComponent implements OnInit {
 
   // Mat Tab Tile Calcs
   tabIndex = 0;
-  asyncTabs: Observable<EmployeeCalcs[]>;
+  tabs: Observable<EmployeeCalcs[]>;
 
   // Table Init
+  dataSource: any;
   displayedColumns: string[] = [
     'EmployeeID', 'name', 'Age',
     'Height', 'Weight', 'BodyTemp', 'PulseRate', 'BloodPressure',
     'RespirationRate', 'ExcerciseAvgPerWeek',
     'WorkAvgPerWeek', 'VacationBalance', 'action'
   ];
-  dataSource: any;
 
   constructor(
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {
     // Form for gender selection
     this.genderDataSelection = this.formBuilder.group({
@@ -91,35 +93,18 @@ export class DashboardComponent implements OnInit {
       sNoResponse: [true],
     });
 
-    // Dynamic Tiles/MatTabs Start
-    this.asyncTabs = new Observable((observer: Observer<EmployeeCalcs[]>) => {
-      setTimeout(() => {
-        observer.next([
-          { label: 'Gender', value1: 1, value2: 11, value3: 31, value4: 42 },
-          { label: 'Age', value1: 2, value2: 10, value3: 32, value4: 40 },
-          { label: 'Height', value1: 3, value2: 9, value3: 33, value4: 49 },
-          { label: 'Weight', value1: 4, value2: 8, value3: 34, value4: 48 },
-          { label: 'Body Temperature', value1: 5, value2: 7, value3: 35, value4: 47 },
-          { label: 'Pulse Rate', value1: 6, value2: 6, value3: 36, value4: 46 },
-          { label: 'Blood Pressure', value1: 7, value2: 5, value3: 37, value4: 45 },
-          { label: 'Respiration Rate', value1: 8, value2: 4, value3: 38, value4: 44 },
-          { label: 'Avg Exercise Hours', value1: 9, value2: 3, value3: 39, value4: 43 },
-          { label: 'Avg Work Hours', value1: 10, value2: 2, value3: 30, value4: 42 },
-          { label: 'Vacation Balance', value1: 11, value2: 1, value3: 34, value4: 41 },
-        ]);
-      }, 500);
-    });
-    // Dynamic Tiles/MatTabs End
-
+    this.tabs = new Observable((observer: Observer<EmployeeCalcs[]>) => { });
   }
 
   @ViewChild(MatTable) table!: MatTable<EmployeeData>;
 
   // LOAD EACH DATA FROM THE SERVER
-  loadData(data: any) {
+  async loadChartData(data: any) {
     this.numEmpl = data?.length;
     this.dataSource = data?.map((x: any) => x);
     this.allGenders = data?.map((x: any) => x.Gender);
+
+    // Get count of "Genders"
     this.male = this.allGenders.filter((x: any) => x === "Male").length;
     this.female = this.allGenders.filter((x: any) => x === "Female").length;
     this.transgender = this.allGenders.filter((x: any) => x === "Transgender").length;
@@ -134,21 +119,23 @@ export class DashboardComponent implements OnInit {
     this.isLoading = true;
 
     // get updated data from server
-    const getUpdatedData = await (await entities.employees.list()).items;
-    this.loadData(getUpdatedData);
+    const update = await (await entities.employees.list()).items;
+    this.loadChartData(update);
+    this.loadAllCalcData(update);
   }
 
   async ngOnInit(): Promise<void> {
     //Load all the data first
-    const getData = await (await entities.employees.list()).items;
-    this.loadData(getData);
+    const loadedData = await (await entities.employees.list()).items;
+    this.loadAllCalcData(loadedData);
+    this.loadChartData(loadedData);
 
     // Register all chart controllers
     Chart.register(...registerables);
 
     // Charts
     this.donutGenderChart();
-    this.allAvgChart();
+    this.allAvgChart(loadedData);
     // Charts End
   }
 
@@ -181,83 +168,53 @@ export class DashboardComponent implements OnInit {
   }
 
   // Bar chart that shows all averages
-  allAvgChart() {
+  allAvgChart(data: any) {
     const barCTX = 'genderBar';
     const allData = {
-      labels: ['Male', 'Female', 'Transgender', 'Non-Binary/Non-Conforming', 'Prefer not to respond'],
+      labels: ['Age', 'Height', 'Weight', 'Body Temperature', 'Pulse Rate', 'Blood Pressure', 'Respiration Rate', 'Avg. Exercise', 'Avg. Work', 'Vacation Bal.'],
       datasets: [
         {
-          label: 'Age',
-          backgroundColor: 'rgba(255, 159, 64)',
-          data: [65, 59, 80, 81, 56]
+          label: 'Mean',
+          backgroundColor: 'rgba(255, 159, 64, 0.4)',
+          data: [this.calcMean(data, 'Age'), this.calcMean(data, 'Height'), this.calcMean(data, 'Weight'), this.calcMean(data, 'BodyTemp'), this.calcMean(data, 'PulseRate'), this.calcMean(data, 'BloodPressure'), this.calcMean(data, 'RespirationRate'), this.calcMean(data, 'ExcerciseAvgPerWeek'), this.calcMean(data, 'WorkAvgPerWeek'), this.calcMean(data, 'VacationBalance')]
         },
         {
-          label: 'Height',
-          backgroundColor: 'rgba(255, 205, 86)',
-          data: [65, 59, 80, 81, 56]
+          label: 'Median',
+          backgroundColor: 'rgba(79, 90, 240, 0.4)',
+          data: [this.calcMedian(data, 'Age'), this.calcMedian(data, 'Height'), this.calcMedian(data, 'Weight'), this.calcMedian(data, 'BodyTemp'), this.calcMedian(data, 'PulseRate'), this.calcMedian(data, 'BloodPressure'), this.calcMedian(data, 'RespirationRate'), this.calcMedian(data, 'ExcerciseAvgPerWeek'), this.calcMedian(data, 'WorkAvgPerWeek'), this.calcMedian(data, 'VacationBalance')]
         },
         {
-          label: 'Weight',
-          backgroundColor: 'rgba(75, 192, 192)',
-          data: [65, 59, 80, 81, 56]
+          label: 'Mode',
+          backgroundColor: 'rgba(60, 214, 83, 0.4)',
+          data: [this.calcMode(data, 'Age'), this.calcMode(data, 'Height'), this.calcMode(data, 'Weight'), this.calcMode(data, 'BodyTemp'), this.calcMode(data, 'PulseRate'), this.calcMode(data, 'BloodPressure'), this.calcMode(data, 'RespirationRate'), this.calcMode(data, 'ExcerciseAvgPerWeek'), this.calcMode(data, 'WorkAvgPerWeek'), this.calcMode(data, 'VacationBalance')]
         },
         {
-          label: 'Body Temperature',
-          backgroundColor: 'rgba(54, 162, 235)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Pulse Rate',
-          backgroundColor: 'rgba(153, 102, 255)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Blood Pressure',
-          backgroundColor: 'rgba(201, 203, 207)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Respiration Rate',
-          backgroundColor: 'rgba(255, 120, 201)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Avg. Exercise',
-          backgroundColor: 'rgba(120, 251, 255)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Avg. Work',
-          backgroundColor: 'rgba(120, 129, 255)',
-          data: [65, 59, 80, 81, 56]
-        },
-        {
-          label: 'Vacation Bal.',
-          backgroundColor: 'rgba(36, 143, 0)',
-          data: [65, 59, 80, 81, 56]
+          label: 'Standard Deviation',
+          backgroundColor: 'rgba(255, 120, 201, 0.4)',
+          data: [this.calcStdDev(data, 'Age'), this.calcStdDev(data, 'Height'), this.calcStdDev(data, 'Weight'), this.calcStdDev(data, 'BodyTemp'), this.calcStdDev(data, 'PulseRate'), this.calcStdDev(data, 'BloodPressure'), this.calcStdDev(data, 'RespirationRate'), this.calcStdDev(data, 'ExcerciseAvgPerWeek'), this.calcStdDev(data, 'WorkAvgPerWeek'), this.calcStdDev(data, 'VacationBalance')]
         }
       ]
     }
     const barChart = new Chart(barCTX, {
-      type: 'bar',
+      type: 'radar',
       data: allData,
       options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+        elements: {
+          line: { borderWidth: 3 }
         }
-      },
-      plugins: []
+      }
     });
-  }
-
-  async devButton() {
   }
 
   changeTab(event: any) {
     // console.log(event.index);
     this.tabIndex = event.index;
+  }
+
+  async reloadCheckEvent(event: any) {
+    console.log(event);
+    const update = await (await entities.employees.list()).items;
+    this.loadAllCalcData(update);
   }
 
   async deleteEmplData(id: any) {
@@ -305,39 +262,141 @@ export class DashboardComponent implements OnInit {
   }
 
   // CONTROLLERS FOR GENDERS
-  genderController() {
-    // Check genders true/false
-    // combine array
-    //
-    //calcMean
+  genderController(data: any) {
+    // Get genders true/false
+    let sMale = this.genderDataSelection.controls['sMale'].value;
+    let sFemale = this.genderDataSelection.controls['sFemale'].value;
+    let sTrans = this.genderDataSelection.controls['sTransgender'].value;
+    let sNonBinary = this.genderDataSelection.controls['sNonBinary'].value;
+    let sNoResp = this.genderDataSelection.controls['sNoResponse'].value;
+
+    // Combine array based on boolean selection
+    const genderArray = data.filter((x: any) => {
+      return x.Gender === (sMale ? 'Male' : undefined)
+        || x.Gender === (sFemale ? 'Female' : undefined)
+        || x.Gender === (sTrans ? 'Transgender' : undefined)
+        || x.Gender === (sNonBinary ? 'Non-Binary/Non-Conforming' : undefined)
+        || x.Gender === (sNoResp ? 'Prefer not to respond' : undefined);
+    });
+
+    return genderArray;
+  }
+
+  //PRE-LOAD ALL CALCULATED DATA
+  loadAllCalcData(data: any) {
+    // Dynamic Tiles/MatTabs Start
+    this.tabs = new Observable((observer: Observer<EmployeeCalcs[]>) => {
+      observer.next([
+        { label: 'Gender', value1: this.calcMean(data, 'Gender'), value2: 'N/A', value3: this.calcMode(data, 'Gender'), value4: 'N/A' },
+        { label: 'Age', value1: this.calcMean(data, 'Age'), value2: this.calcMedian(data, 'Age'), value3: this.calcMode(data, 'Age'), value4: this.calcStdDev(data, 'Age') },
+        { label: 'Height', value1: this.calcMean(data, 'Height'), value2: this.calcMedian(data, 'Height'), value3: this.calcMode(data, 'Height'), value4: this.calcStdDev(data, 'Height') },
+        { label: 'Weight', value1: this.calcMean(data, 'Weight'), value2: this.calcMedian(data, 'Weight'), value3: this.calcMode(data, 'Weight'), value4: this.calcStdDev(data, 'Weight') },
+        { label: 'Body Temperature', value1: this.calcMean(data, 'BodyTemp'), value2: this.calcMedian(data, 'BodyTemp'), value3: this.calcMode(data, 'BodyTemp'), value4: this.calcStdDev(data, 'BodyTemp') },
+        { label: 'Pulse Rate', value1: this.calcMean(data, 'PulseRate'), value2: this.calcMedian(data, 'PulseRate'), value3: this.calcMode(data, 'PulseRate'), value4: this.calcStdDev(data, 'PulseRate') },
+        { label: 'Blood Pressure', value1: this.calcMean(data, 'BloodPressure'), value2: this.calcMedian(data, 'BloodPressure'), value3: this.calcMode(data, 'BloodPressure'), value4: this.calcStdDev(data, 'BloodPressure') },
+        { label: 'Respiration Rate', value1: this.calcMean(data, 'RespirationRate'), value2: this.calcMedian(data, 'RespirationRate'), value3: this.calcMode(data, 'RespirationRate'), value4: this.calcStdDev(data, 'RespirationRate') },
+        { label: 'Avg Exercise Hours', value1: this.calcMean(data, 'ExcerciseAvgPerWeek'), value2: this.calcMedian(data, 'ExcerciseAvgPerWeek'), value3: this.calcMode(data, 'ExcerciseAvgPerWeek'), value4: this.calcStdDev(data, 'ExcerciseAvgPerWeek') },
+        { label: 'Avg Work Hours', value1: this.calcMean(data, 'WorkAvgPerWeek'), value2: this.calcMedian(data, 'WorkAvgPerWeek'), value3: this.calcMode(data, 'WorkAvgPerWeek'), value4: this.calcStdDev(data, 'WorkAvgPerWeek') },
+        { label: 'Vacation Balance', value1: this.calcMean(data, 'VacationBalance'), value2: this.calcMedian(data, 'VacationBalance'), value3: this.calcMode(data, 'VacationBalance'), value4: this.calcStdDev(data, 'VacationBalance') },
+      ]);
+    });
   }
 
   // MATH FUNCTIONS
-  calcMean(dataArr: Array<any>, type: string) {
+  calcMean(data: any, tab: string): any {
+    // Filter array based on T/F Selection from Tiles.
+    var filteredArray: Array<any> = this.genderController(data);
+
+    // Gender: # of checked gender / total of employees
+    // Every Other: # of check gender's type / total of employees
     var result;
-    switch (type) {
-      case "Gender":
-        result = dataArr.reduce((x, y) => x + y[type], 0) / dataArr.length;
+    var mean;
+    switch (tab) {
+      case 'Gender': {
+        // Because gender outputs a string, it has to find the length of the string instead.
+        mean = (filteredArray.map(x => x.Gender).length) / data.length;
         break;
+      }
+      default: {
+        // Everything else that is numeric, go here.
+        mean = filteredArray.reduce((x, y) => x + y[tab], 0) / data.length;
+      }
     }
 
-    console.log(result);
+    // Return the result
+    result = Math.round((mean + Number.EPSILON) * 100) / 100;
     return result;
   }
 
-  calcMode() {
-    var result;
-    return result;
+  calcMedian(data: any, tab: string): any {
+    // Filter array based on T/F Selection from Tiles.
+    var filteredArray: Array<any> = this.genderController(data);
+
+    // Get the middle number
+    const midNum = Math.floor(filteredArray.length / 2),
+      // Sorts the numbers
+      nums = filteredArray.map(x => x[tab]).sort((x, y) => x - y);
+
+    // Set the middle number, if it is even sized then (x+y)/2
+    return filteredArray.length % 2 !== 0 ? nums[midNum] : (nums[midNum - 1] + nums[midNum]) / 2;;
   }
 
-  calcRange() {
-    // range = max-min
-    var result;
-    return result;
+  calcMode(data: any, tab: string): any {
+    // Filter array based on T/F Selection from Tiles.
+    var filteredArray: Array<any> = this.genderController(data);
+
+    const mappedArray = filteredArray.map(x => x[tab]);
+
+    switch (tab) {
+      // For strings
+      case 'Gender':
+        const thisMode = mappedArray.reduce((x, y, i, arr) =>
+          (arr.filter(v => v === x).length >= arr.filter(v => v === y).length ? x : y), '');
+        return thisMode;
+      // For numbers
+      default:
+        const objArr: any = {};
+        mappedArray.forEach(x => {
+          if (!objArr[x])
+            objArr[x] = 1;
+          else
+            objArr[x] += 1;
+        });
+
+        let valueOne = 0, valueTwo = -Infinity;
+
+        for (let key in objArr) {
+          const value = objArr[key];
+          if (value >= valueOne && Number(key) > valueTwo) {
+            valueOne = value;
+            valueTwo = Number(key);
+          }
+        }
+
+        return valueTwo;
+    }
   }
 
-  calcStdDev() {
-    var result;
-    return result;
+  calcStdDev(data: any, tab: string): any {
+    // Filter array based on T/F Selection from Tiles.
+    var filteredArray: Array<any> = this.genderController(data);
+    var mean: any;
+
+    switch (tab) {
+      case 'Gender':
+        // Find the mean of genders
+        mean = (filteredArray.map(x => x.Gender).length) / data.length;
+        break
+      default:
+        // Find the mean of everything except gender
+        mean = filteredArray.reduce((x, y) => x + y[tab], 0) / data.length;
+        break;
+    }
+    var stdDev = Math.sqrt(
+      filteredArray.map(x => x[tab])
+        .reduce((x, y) => x.concat((y - mean) ** 2), [])
+        .reduce((x: any, y: any) => x + y, 0) /
+      (filteredArray.length));
+    return Math.round((stdDev + Number.EPSILON) * 100) / 100;
   }
 }
