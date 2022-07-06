@@ -45,7 +45,7 @@ export class AddEmplModalComponent implements OnInit {
     // Pop the highest employee number
     var loadingData = data.map((x: any) => x.EmployeeID).sort((a: number, b: number) => a - b).pop();
 
-    // Sets next employeeID
+    // Get next employeeID
     this.submitModel.EmployeeID = loadingData + 1;
   }
 
