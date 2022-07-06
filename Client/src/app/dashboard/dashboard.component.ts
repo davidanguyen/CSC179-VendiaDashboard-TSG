@@ -253,11 +253,14 @@ export class DashboardComponent implements OnInit {
   }
 
   async devButton() {
+    const getData = await (await entities.employees.list()).items;
+    this.genderController(getData);
   }
 
   changeTab(event: any) {
     // console.log(event.index);
     this.tabIndex = event.index;
+    this.genderDataSelection.reset();
   }
 
   async deleteEmplData(id: any) {
@@ -305,7 +308,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // CONTROLLERS FOR GENDERS
-  genderController(data: Array<any>) {
+  genderController(data: any) {
     // Get genders true/false
     let sMale = this.genderDataSelection.controls['sMale'].value;
     let sFemale = this.genderDataSelection.controls['sFemale'].value;
@@ -314,8 +317,18 @@ export class DashboardComponent implements OnInit {
     let sNoResp = this.genderDataSelection.controls['sNoResponse'].value;
 
     // combine array
-    // const genderArray = data.every()
+    const arrItems = [
+      ... sMale ? ['Male'] : [],
+      ... sFemale ? ['Female'] : [],
+      ... sTrans ? ['Transgender'] : [],
+      ... sNonBinary ? ['NonBinary'] : [],
+      ... sNoResp ? ['NoResponse'] : [],
+    ];
+    const genderArray = data.includes(arrItems);
 
+    console.log(data);
+    console.log(arrItems);
+    console.log(genderArray);
     // calcMean
   }
 
@@ -325,7 +338,7 @@ export class DashboardComponent implements OnInit {
     // Gender: # of checked gender / total of employees
     // Every Other: # of check gender's type / total of employees
     // Need 2 arrays, a filtered array for checked genders and the number of employees
-    
+
     // switch (type) {
     //   case "Gender":
     //     result = dataArr.reduce((x, y) => x + y.Gender, 0) / this.numEmpl;
