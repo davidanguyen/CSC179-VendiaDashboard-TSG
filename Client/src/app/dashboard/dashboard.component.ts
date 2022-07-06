@@ -40,7 +40,7 @@ export interface EmployeeCalcs {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss','./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss', './dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   time = new Date();
@@ -304,11 +304,24 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(OverallShareModalComponent);
   }
 
-  private _mean: number = 0;
+  // CONTROLLERS FOR GENDERS
+  genderController() {
+    // Check genders true/false
+    // combine array
+    //
+    //calcMean
+  }
 
   // MATH FUNCTIONS
-  calcMean() {
+  calcMean(dataArr: Array<any>, type: string) {
     var result;
+    switch (type) {
+      case "Gender":
+        result = dataArr.reduce((x, y) => x + y[type], 0) / dataArr.length;
+        break;
+    }
+
+    console.log(result);
     return result;
   }
 
